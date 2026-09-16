@@ -48,76 +48,52 @@ void pattern3(int n) {
 }
 
 void patter4(int n) {
-  for (int i = 1; i <=n; i++) {
-
-    for (int j = 0; j < n - i; j++) {
-      cout << " " << " ";
-    }
-    for (int j = 0; j < i; j++) {
-      char ch = 'A' + j;
-      cout << ch << " ";
-    }
-    cout << endl;
-  }
-}
-
-void patter5(int n) {
-  for (int i =1 ; i <= n; i++) {
-    for (int j = 0; j < n - i ; j++) {
-      cout << " " << " ";
-    }
-    for (int j = i; j >=1; j--) {
-      cout << j << " ";
-    }
-    cout << endl;
-  }
-}
-
-void patter6( int n){
-  for(int i = 0 ; i<n;i++){
-    for(int j = 1;j<n-i;j++){
-      cout<<"_"<<" ";
-    }
-     for(int j = 0;j<=i;j++){
-      char ch  = 'A'+i ;
-      cout<<ch<<" ";
-    }
-    cout<<endl;
-  }
-} 
+   for(int i = 1 ; i<=n ;i++){
+       // top lft
+        for(int j = n ;j>=i;j-- ){
+           cout<<"*"<<" ";
+       }
+       // spaces
+       for(int j = 1; j<i ;j++){
+           cout<<"_"<<" ";
+       }
+       for(int j = 1; j<i ;j++){
+           cout<<"_"<<" ";
+       }
+// top rt
+        for(int j = i ;j<=n;j++ ){
+           cout<<"*"<<" ";
+       }
 
 
-void patter7(int n ){
-  for(int  i = 0 ; i <=  n ; i++){
 
-    for(int j = 0 ;j<n-i;j++){
-      cout<<" "<<" ";
-    }
+       cout<<endl;
+    
+     
+   }
+      for(int i = n ; i>=1 ;i--){
+       // top lft
+        for(int j = n ;j>=i;j-- ){
+           cout<<"*"<<" ";
+       }
+       // spaces
+       for(int j = 1; j<i ;j++){
+           cout<<"_"<<" ";
+       }
+       for(int j = 1; j<i ;j++){
+           cout<<"_"<<" ";
+       }
+// top rt
+        for(int j = i ;j<=n;j++ ){
+           cout<<"*"<<" ";
+       }
 
-char ch = 'A'+n-1;
-    for(int j= 0 ; j<i;j++){
-      
-
-      cout<<ch<<" ";
-      ch--;
-    }
-    cout<<endl;
-  }
-}
 
 
-void patter8(int n ){
-  for(int  i = 0 ; i <=  n ; i++){
-
-    for(int j = 0 ;j<n-i;j++){
-      cout<<" "<<" ";
-    }
-
-    for(int j= n ; j>n-i;j--){
-      cout<<j<<" ";
-    }
-    cout<<endl;
-  }
+       cout<<endl;
+    
+     
+   }
 }
 
 
