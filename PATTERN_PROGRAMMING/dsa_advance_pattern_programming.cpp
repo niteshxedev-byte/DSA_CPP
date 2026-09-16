@@ -141,16 +141,37 @@ void patter5(int n) {
 
 
        cout<<endl;
-    
-     
-   }
-
-  
+}
 }
 
 
+    
+void pattern6(int n) {
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n - i; j++) {
+      cout << " " << " ";
+    }
+
+    for (int j = 0; j <2*i-1; j++) {
+      cout << "*" << " ";
+    }
+    cout << endl;
+  }
+
+      for (int i = n; i > 0; i--) {
+    for (int j = 0; j < n - i; j++) {
+      cout << " " << " ";
+    }
+
+    for (int j = 0; j <2*i-1; j++) {
+      cout << "*" << " ";
+    }
+    cout << endl;
+  }
+}
 
 
+    
 
 int main() {
   int n = 5;
@@ -160,7 +181,7 @@ int main() {
   // pattern3(n);
   // patter4(n);
   // patter5(n);
-  //  patter6(n); 
+  pattern6(n);
 // patter7(n );
 
 // patter8(n );
