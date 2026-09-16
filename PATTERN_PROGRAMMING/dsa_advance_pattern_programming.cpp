@@ -83,7 +83,7 @@ void patter4(int n) {
        for(int j = 1; j<i ;j++){
            cout<<"_"<<" ";
        }
-// top rt
+// btm rt
         for(int j = i ;j<=n;j++ ){
            cout<<"*"<<" ";
        }
@@ -96,13 +96,68 @@ void patter4(int n) {
    }
 }
 
+void patter5(int n) {
+      //btm 
+      for(int i = n ; i>=1 ;i--){
+       // top lft
+        for(int j = n ;j>=i;j-- ){
+           cout<<"*"<<" ";
+       }
+       // spaces
+       for(int j = 1; j<i ;j++){
+           cout<<"_"<<" ";
+       }
+       for(int j = 1; j<i ;j++){
+           cout<<"_"<<" ";
+       }
+// top rt
+        for(int j = i ;j<=n;j++ ){
+           cout<<"*"<<" ";
+       }
+
+
+
+       cout<<endl;
+    
+     
+   }
+   for(int i = 2 ; i<=n;i++){
+       // top lft
+        for(int j = n ;j>=i;j-- ){
+           cout<<"*"<<" ";
+       }
+       // spaces
+       for(int j = 1; j<i ;j++){
+           cout<<"_"<<" ";
+       }
+       for(int j = 1; j<i ;j++){
+           cout<<"_"<<" ";
+       }
+// top rt
+        for(int j = i ;j<=n;j++ ){
+           cout<<"*"<<" ";
+       }
+
+
+
+       cout<<endl;
+    
+     
+   }
+
+  
+}
+
+
+
+
 
 int main() {
   int n = 5;
 
     // pattern1(n);
     // pattern2(n);
-  pattern3(n);
+  // pattern3(n);
   // patter4(n);
   // patter5(n);
   //  patter6(n); 
