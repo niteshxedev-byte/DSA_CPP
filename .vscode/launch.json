@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/niteshxe.dev/Documents/dsa_cpp/ARRAY_SEARCHING",
-      "program": "/home/niteshxe.dev/Documents/dsa_cpp/ARRAY_SEARCHING/build/Debug/outDebug",
+      "cwd": "${workspaceFolder}",
+      "program": "${fileDirname}/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

@@ -3,15 +3,18 @@
 using namespace std;
 
 void linearSearch(vector <int> &arr ,int n ,int target,int idx){
-    
+     // Base case 1: target found
      if(arr[idx]==target){
-         cout<<idx;
-      return ;  
-         
+         cout<<idx<<endl;
+         return ;  
+     }
+     // Base case 2: reached end of search space without finding target
+     if(idx >= n){
+         cout<<"Element not found"<<endl;
+         return;
      }
     
      linearSearch(arr,n,target,idx+1);
-   
 }
 
 
