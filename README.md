@@ -12,10 +12,10 @@ Study and revise the topics in this sequential order:
 flowchart TD
     A["01. Basic Maths<br/>(Digits, Palindrome, Factors, Fibonacci)"] --> B["02. Pattern Programming<br/>(Nested Loops, Space & Star Logic)"]
     B --> C["03. C++ STL<br/>(Vectors, Sets, Maps, Stack, Queue)"]
-    C --> D["04. Recursion<br/>(Base Cases, Call Stack, In-place Reversal)"]
+    C --> D["04. Recursion<br/>(Base Cases, Call Stack, Pointer Arithmetic)"]
     D --> E["05. Arrays<br/>(Traversal, Two Sum, Rotations, Two Pointers)"]
     E --> F["06. Searching Algorithms<br/>(Linear Search vs Binary Search)"]
-    F --> G["07. Sorting Algorithms<br/>(Selection Sort, Bubble Sort)"]
+    F --> G["07. Sorting Algorithms<br/>(Selection, Bubble, Insertion Sort)"]
 ```
 
 ---
@@ -40,6 +40,8 @@ dsa_cpp/
 │
 ├── 04_recursion/
 │   ├── 01_recursion_basics.cpp        # Factorial, 1-to-N, N-to-1, recursive vector printing
+│   ├── 02_recrussion.cpp              # Forward/rev counting, recursive sum, average, factorial
+│   ├── 03_recrussion.cpp              # Pointer-based array recursion: check sorted, sum, print
 │   ├── diagrams/
 │   │   ├── recursion_call_stack.png       # Call stack memory diagram
 │   │   ├── reverse_array_extra_vector.png # Auxiliary array recursion trace
@@ -59,7 +61,8 @@ dsa_cpp/
 │   └── binary_search.cpp              # Binary search on sorted array (O(log N))
 │
 ├── 07_sorting/
-│   └── sorting_algorithms.cpp         # Selection Sort and Bubble Sort implementations
+│   ├── sorting_algorithms.cpp         # Selection Sort and Bubble Sort implementations
+│   └── sorting.cpp                    # Selection Sort, Bubble Sort, & Insertion Sort (with bilingual notes)
 │
 ├── .gitignore                         # Ignores executables (*.exe, *.out, build/)
 └── README.md                          # Repository documentation & guide
@@ -67,34 +70,36 @@ dsa_cpp/
 
 ---
 
-## 🔄 File Migration Map ("Where did my old files go?")
+## 🔄 File Contents & Migration Map
 
-Use this lookup table to find any of your original files:
+Use this lookup table to quickly locate any file and understand what it covers:
 
-| Original Path | New Clean Path | What it Covers |
+| Path | Source / Status | What it Covers |
 | :--- | :--- | :--- |
-| `maths/basic_maths.cpp` | `01_maths/basic_maths_part1.cpp` | Digit operations, palindrome, min/max digits |
-| `maths/basic_maths_part2.cpp` | `01_maths/basic_maths_part2.cpp` | Loops, Fibonacci, Factorial, Factors |
-| `PATTERN_PROGRAMMING/normal_dsabasic_pattern+problrm.cpp` | `02_patterns/01_basic_patterns.cpp` | 12 starter pattern problems |
-| `PATTERN_PROGRAMMING/normal_dsamidum_patter_progrm.cpp` | `02_patterns/02_medium_patterns.cpp` | Intermediate pyramid & triangle patterns |
-| `PATTERN_PROGRAMMING/dsa_advance_pattern_programming.cpp` | `02_patterns/03_advance_patterns.cpp` | Full pyramids & diamond patterns |
-| `PATTERN_PROGRAMMING/dsa_hard_pattern_programmiing.cpp` | `02_patterns/04_hard_patterns.cpp` | Hollow diamonds & concentric number spiral |
-| `STL_CPP/STL_CONTAINERS.CPP` | `03_stl/stl_containers_overview.cpp` | Complete STL container guide with print templates |
-| `STL_CPP/CONTAINERS /VECTORS_STL.CPP` | `03_stl/vector_operations.cpp` | Vector traversal and `.pop_back()` behavior |
-| `RECRUSION_DSA/1st_file.cpp` | `04_recursion/01_recursion_basics.cpp` | Core recursion (factorial, 1 to N, vector traversal) |
-| `RECRUSION_DSA/digrams /image.png` | `04_recursion/diagrams/recursion_call_stack.png` | Recursion call stack diagram |
-| `RECRUSION_DSA/.../revrse_array_... .png` | `04_recursion/diagrams/reverse_array_extra_vector.png` | Diagram of extra-vector recursive reversal |
-| `RECRUSION_DSA/.../rev_array_twopointer.png` | `04_recursion/diagrams/reverse_array_two_pointer.png` | Diagram of two-pointer recursive reversal |
-| `RECRUSION_DSA/.../Linearsearch.cpp` | `04_recursion/practice/recursive_linear_search.cpp` | Linear search using recursion |
-| `RECRUSION_DSA/.../revrseArrayusing_recrssion.cpp` | `04_recursion/practice/reverse_array_extra_vector.cpp` | Reverse array via recursion with new vector |
-| `RECRUSION_DSA/.../revrse_array_..._recrsuuing.cpp` | `04_recursion/practice/reverse_array_two_pointer.cpp` | Reverse array via recursion using two pointers |
-| `ARRAY/LECTURE_1.CPP` | `05_arrays/01_array_basics.cpp` | Static arrays, memory garbage, char arrays |
-| `ARRAY/lecture_1_Part2.cpp` | `05_arrays/02_array_operations.cpp` | Min/max, counting 0s/1s, even/odd, basic search |
-| `ARRAY/lecture_2_part1.cpp` | `05_arrays/03_array_problems.cpp` | Check sorted, Two Sum, Consecutive Ones, Rotate by 1 |
-| `ARRAY_SEARCHING/Linear_Search_Algorithm.cpp` | `06_searching/linear_search.cpp` | Iterative linear search with detailed notes |
-| `ARRAY_SEARCHING/BINARY_SEARCH_ALGO.CPP` | `06_searching/binary_search.cpp` | Binary search with overflow-safe mid calculation |
-| `ARRAY/sorting.cpp` | `07_sorting/sorting_algorithms.cpp` | Selection Sort & optimized Bubble Sort |
-| `ARRAY_SEARCHING/Linear_Search_Algorithm` | *(Removed)* | Compiled binary executable removed from git |
+| `01_maths/basic_maths_part1.cpp` | Migrated from `maths/` | Digit extraction, palindrome, min/max digits, sum of digits |
+| `01_maths/basic_maths_part2.cpp` | Migrated from `maths/` | Loops 1-to-N, Fibonacci, Factorial, proper factors |
+| `02_patterns/01_basic_patterns.cpp` | Migrated from `PATTERN_PROGRAMMING/` | 12 starter pattern problems (squares, triangles, Floyd's, 0-1) |
+| `02_patterns/02_medium_patterns.cpp` | Migrated from `PATTERN_PROGRAMMING/` | Intermediate pyramid & triangle patterns |
+| `02_patterns/03_advance_patterns.cpp` | Migrated from `PATTERN_PROGRAMMING/` | Full pyramids & diamond patterns |
+| `02_patterns/04_hard_patterns.cpp` | Migrated from `PATTERN_PROGRAMMING/` | Hollow diamonds & concentric number spiral |
+| `03_stl/stl_containers_overview.cpp` | Migrated from `STL_CPP/` | Complete STL container guide with generic print templates |
+| `03_stl/vector_operations.cpp` | Migrated from `STL_CPP/` | Vector traversal methods and `.pop_back()` behavior |
+| `04_recursion/01_recursion_basics.cpp` | Migrated from `RECRUSION_DSA/` | Core recursion (factorial, 1-to-N, vector traversal) |
+| `04_recursion/02_recrussion.cpp` | **New File** | Forward/reverse counting, recursive vector sum & average, factorial |
+| `04_recursion/03_recrussion.cpp` | **New File** | Pointer arithmetic recursion (`arr + 1`, `size - 1`), check if array is sorted, array sum |
+| `04_recursion/diagrams/recursion_call_stack.png` | Migrated diagram | Recursion call stack memory diagram |
+| `04_recursion/diagrams/reverse_array_extra_vector.png` | Migrated diagram | Diagram of extra-vector recursive reversal |
+| `04_recursion/diagrams/reverse_array_two_pointer.png` | Migrated diagram | Diagram of two-pointer recursive reversal |
+| `04_recursion/practice/recursive_linear_search.cpp` | Migrated practice | Linear search using recursion |
+| `04_recursion/practice/reverse_array_extra_vector.cpp` | Migrated practice | Reverse array via recursion with new vector |
+| `04_recursion/practice/reverse_array_two_pointer.cpp` | Migrated practice | Reverse array via recursion using two pointers |
+| `05_arrays/01_array_basics.cpp` | Migrated from `ARRAY/` | Static arrays, memory garbage values, char arrays |
+| `05_arrays/02_array_operations.cpp` | Migrated from `ARRAY/` | Min/max, counting 0s/1s, even/odd, basic search |
+| `05_arrays/03_array_problems.cpp` | Migrated from `ARRAY/` | Check sorted, Two Sum, Consecutive Ones, Rotate by 1, Vector Reverse |
+| `06_searching/linear_search.cpp` | Migrated from `ARRAY_SEARCHING/` | Iterative linear search with detailed notes |
+| `06_searching/binary_search.cpp` | Migrated from `ARRAY_SEARCHING/` | Binary search with overflow-safe mid calculation |
+| `07_sorting/sorting_algorithms.cpp` | Migrated from `ARRAY/` | Selection Sort & optimized Bubble Sort |
+| `07_sorting/sorting.cpp` | **New File** | Selection Sort, Bubble Sort, & **Insertion Sort** with bilingual explanations |
 
 ---
 
@@ -143,12 +148,26 @@ Thinking recursively: breaking large problems into smaller identical sub-problem
   1. **Base Case**: The stopping condition that prevents infinite calls and stack overflow.
   2. **Self Work / Small Computation**: What this specific frame computes.
   3. **Recursive Call**: Calling the function with modified arguments moving towards the base case.
-- **Practiced Problems**:
-  - `01_recursion_basics.cpp`: Factorial (\(O(N)\) time, \(O(N)\) call stack memory), printing sequences, recursive array traversal.
-  - `recursive_linear_search.cpp`: Finding target recursively by scanning index `idx -> idx + 1`.
-  - `reverse_array_extra_vector.cpp`: Recursively pushing from end into a new vector (\(O(N)\) extra space).
-  - `reverse_array_two_pointer.cpp`: Recursively swapping `arr[left]` and `arr[right]` in-place (\(O(1)\) auxiliary memory, \(O(N)\) call stack).
-- **Diagrams**: Visual handwritten diagrams in `04_recursion/diagrams/` illustrate the activation records and pointer shifts.
+
+- **Files in this Module**:
+  - **`01_recursion_basics.cpp`**: Core concepts — Factorial calculation (\(O(N)\)), printing 1 to 5, printing 5 to 10, and printing elements of a vector recursively.
+  - **`02_recrussion.cpp`** *(Newly added)*:
+    - Counting reverse (`printcountingREV`): prints $N$ down to 1.
+    - Counting forward (`printcountingFwd`): prints 1 up to $N$ using an index default parameter.
+    - Recursive vector summation (`calculateSUM`): `nums[size-1] + calculateSUM(nums, size-1)`.
+    - Recursive average calculation (`calculateAvg`): divides recursive sum by size.
+    - Factorial with clean $N = 0$ base case.
+  - **`03_recrussion.cpp`** *(Newly added)*:
+    - **Pointer Arithmetic Recursion Pattern**: Demonstrates passing `arr + 1` and decrementing `size - 1` without maintaining separate index variables.
+    - **Check if Array is Sorted (`isVectorSorted`)**:
+      - Base case: `size == 0 || size == 1` $\to$ `true`.
+      - Check: if `arr[0] > arr[1]` $\to$ `false`.
+      - Recurse: `isVectorSorted(arr + 1, size - 1)`.
+    - Recursive array traversal and summation using raw pointers.
+  - **`practice/recursive_linear_search.cpp`**: Finding target recursively with safe boundary checks.
+  - **`practice/reverse_array_extra_vector.cpp`**: Reverse array recursively by pushing into a new vector (\(O(N)\) space).
+  - **`practice/reverse_array_two_pointer.cpp`**: In-place two-pointer recursive swap (\(O(1)\) auxiliary memory).
+  - **`diagrams/`**: Hand-drawn traces of call stacks and two-pointer swap mechanisms.
 
 ### 5. Arrays (`05_arrays/`)
 Contiguous memory data structure and fundamental algorithmic patterns.
@@ -187,14 +206,29 @@ Comparing sequential search with logarithmic divide-and-conquer search.
 Elementary comparison-based sorting algorithms:
 
 - **Selection Sort**:
-  - Concept: Divides array into sorted and unsorted parts. Repeatedly finds the minimum element in the unsorted portion and swaps it with the first unsorted element.
-  - Time Complexity: \(O(N^2)\) in all cases (best, average, worst).
-  - Space Complexity: \(O(1)\) in-place.
+  - **Concept**: Divides the array into sorted and unsorted regions. In each pass, finds the minimum element in the unsorted portion and swaps it with the first unsorted element.
+  - **Time Complexity**: \(O(N^2)\) in all cases (best, average, worst).
+  - **Space Complexity**: \(O(1)\) in-place.
 - **Bubble Sort**:
-  - Concept: Repeatedly steps through the array, compares adjacent elements, and swaps them if they are in the wrong order. Large elements "bubble up" to the end.
-  - Optimization: Uses an `isSwapped` flag. If no swaps occur in an entire pass, the array is already sorted and the algorithm terminates immediately.
-  - Time Complexity: \(O(N^2)\) worst/average, \(O(N)\) best case (when already sorted).
-  - Space Complexity: \(O(1)\) in-place.
+  - **Concept**: Repeatedly steps through the array, compares adjacent elements, and swaps them if they are in the wrong order. Larger elements "bubble up" to the end with each pass.
+  - **Optimization**: Uses an `isSwapped` flag. If no swaps occur in a full pass, the array is already sorted, terminating early in \(O(N)\).
+  - **Time Complexity**: \(O(N^2)\) worst/average, \(O(N)\) best case.
+  - **Space Complexity**: \(O(1)\) in-place.
+- **Insertion Sort** *(Newly added in `07_sorting/sorting.cpp`)*:
+  - **Concept**: Builds the sorted array one element at a time. Takes element `key = vec[i]` and shifts all preceding elements that are greater than `key` one position to the right, inserting `key` into its correct position.
+  - **Analogy**: Similar to sorting playing cards in your hand.
+  - **Time Complexity**:
+    - Best Case: \(O(N)\) when the array is already sorted (the `while` condition immediately evaluates to false).
+    - Average & Worst Case: \(O(N^2)\) when the array is in reverse order.
+  - **Space Complexity**: \(O(1)\) in-place.
+
+#### Comparison Matrix
+
+| Algorithm | Best Time | Average Time | Worst Time | Space | Stable? | In-Place? | Key Mechanism |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **Selection Sort** | \(O(N^2)\) | \(O(N^2)\) | \(O(N^2)\) | \(O(1)\) | No | Yes | Find minimum element, swap to current index |
+| **Bubble Sort** | \(O(N)\)* | \(O(N^2)\) | \(O(N^2)\) | \(O(1)\) | Yes | Yes | Swap adjacent out-of-order elements (*with swap flag) |
+| **Insertion Sort** | \(O(N)\) | \(O(N^2)\) | \(O(N^2)\) | \(O(1)\) | Yes | Yes | Shift larger elements right, insert key into position |
 
 ---
 
@@ -205,11 +239,11 @@ Elementary comparison-based sorting algorithms:
 You can compile and run any C++ file using GCC (`g++`):
 
 ```bash
-# Compile
-g++ -std=c++17 -Wall 05_arrays/03_array_problems.cpp -o run_problem
+# Example: Compile and run the new sorting file
+g++ -std=c++17 -Wall 07_sorting/sorting.cpp -o run_sort && ./run_sort
 
-# Execute
-./run_problem
+# Example: Compile and run pointer-based recursion
+g++ -std=c++17 -Wall 04_recursion/03_recrussion.cpp -o run_rec && ./run_rec
 ```
 
 ### Method 2: In VS Code
