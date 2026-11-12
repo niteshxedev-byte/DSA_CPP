@@ -68,7 +68,8 @@ dsa_cpp/
 │
 ├── leetcode/
 │   └── arrays/
-│       └── index.cpp                  # LC 1572 (Diag Sum), LC 867 (Transpose), LC 48 (Rotate 90°), LC 485 (Max 1s)
+│       ├── index.cpp                  # LC 1572 (Diag Sum), LC 867 (Transpose), LC 48 (Rotate 90°), LC 485 (Max 1s)
+│       └── index2.cpp                 # LC 88 (Merge Sorted Array), LC 74 (Search 2D Matrix), LC 485 (Max 1s)
 │
 ├── .gitignore                         # Ignores executables (*.exe, *.out, build/)
 └── README.md                          # Repository documentation & guide
@@ -106,6 +107,7 @@ Use this lookup table to quickly locate any file and understand what it covers:
 | **06 Searching** | `06_searching/binary_search.cpp` | Binary search with overflow-safe mid calculation |
 | **07 Sorting** | `07_sorting/sorting.cpp` | Selection Sort, Bubble Sort, Insertion Sort, and Exchange Sort |
 | **LeetCode** | `leetcode/arrays/index.cpp` | LC 1572 (Diagonal Sum), LC 867 (Transpose), LC 48 (Rotate Image), LC 485 (Max Ones) |
+| **LeetCode** | `leetcode/arrays/index2.cpp` | LC 88 (Merge Sorted Array), LC 74 (Search 2D Matrix), LC 485 (Max Consecutive Ones) |
 
 ---
 
@@ -253,8 +255,9 @@ Comparison-based sorting algorithms implemented in `07_sorting/sorting.cpp`:
 | **Exchange Sort** | \(O(N^2)\) | \(O(N^2)\) | \(O(N^2)\) | \(O(1)\) | No | Yes | Swap whenever `vec[i] > vec[j]` across nested loops |
 
 ### 8. LeetCode Practice (`leetcode/arrays/`)
-Dedicated competitive programming problem solutions implemented in `leetcode/arrays/index.cpp`:
+Dedicated competitive programming problem solutions implemented in `leetcode/arrays/index.cpp` and `leetcode/arrays/index2.cpp`:
 
+#### In `leetcode/arrays/index.cpp`:
 1. **LeetCode 1572: Matrix Diagonal Sum**:
    - Computes sum of primary diagonal (`mat[i][i]`) and secondary diagonal (`mat[i][n - 1 - i]`).
    - If the matrix size is odd, the exact center element belongs to both diagonals; handled with `if (i != n - i - 1)` to avoid double counting.
@@ -274,6 +277,18 @@ Dedicated competitive programming problem solutions implemented in `leetcode/arr
    - Resets `currentCount = 0` whenever a 0 is encountered.
    - **Complexity**: \(O(N)\) time, \(O(1)\) space.
 
+#### In `leetcode/arrays/index2.cpp`:
+5. **LeetCode 88: Merge Sorted Array**:
+   - **Approach 1 (Append & Sort)**: Appends `nums2` into `nums1` starting at index `m` and sorts the entire array. Complexity: \(O((m + n) \log(m + n))\) time, \(O(1)\) space.
+   - **Approach 2 (Optimal 3-Pointer Backwards)**: Merges from end index `m + n - 1` downwards by comparing largest remaining elements in `nums1` and `nums2`. Complexity: \(O(m + n)\) time, \(O(1)\) space without overwriting unread elements in `nums1`.
+6. **LeetCode 74: Search a 2D Matrix**:
+   - Performs a **2-stage binary search**:
+     1. Binary search on row boundaries (`matrix[mid][0]` to `matrix[mid][cols - 1]`) to locate target row in \(O(\log m)\).
+     2. Binary search on columns within target row in \(O(\log n)\).
+   - **Overall Complexity**: \(O(\log(m \cdot n))\) time, \(O(1)\) space.
+7. **LeetCode 485: Max Consecutive Ones**:
+   - Alternative tracking solution with test cases validating consecutive 1s streaks.
+
 ---
 
 ## 🛠️ How to Compile & Run
@@ -283,8 +298,9 @@ Dedicated competitive programming problem solutions implemented in `leetcode/arr
 You can compile and run any C++ file using GCC (`g++`):
 
 ```bash
-# Example 1: Compile and run LeetCode array solutions
+# Example 1: Compile and run LeetCode array solutions (index and index2)
 g++ -std=c++17 -Wall leetcode/arrays/index.cpp -o run_lc && ./run_lc
+g++ -std=c++17 -Wall leetcode/arrays/index2.cpp -o run_lc2 && ./run_lc2
 
 # Example 2: Compile and run 2D matrix operations
 g++ -std=c++17 -Wall 05_arrays/array2d.cpp -o run_2d && ./run_2d
