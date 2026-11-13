@@ -69,7 +69,9 @@ dsa_cpp/
 ├── leetcode/
 │   └── arrays/
 │       ├── index.cpp                  # LC 1572 (Diag Sum), LC 867 (Transpose), LC 48 (Rotate 90°), LC 485 (Max 1s)
-│       └── index2.cpp                 # LC 88 (Merge Sorted Array), LC 74 (Search 2D Matrix), LC 485 (Max 1s)
+│       ├── index2.cpp                 # LC 88 (Merge Sorted Array), LC 74 (Search 2D Matrix), LC 485 (Max 1s)
+│       ├── index3.cpp                 # LC 1470 (Shuffle the Array)
+│       └── index4.cpp                 # LC 34 (Find First and Last Position of Element in Sorted Array)
 │
 ├── .gitignore                         # Ignores executables (*.exe, *.out, build/)
 └── README.md                          # Repository documentation & guide
@@ -108,6 +110,8 @@ Use this lookup table to quickly locate any file and understand what it covers:
 | **07 Sorting** | `07_sorting/sorting.cpp` | Selection Sort, Bubble Sort, Insertion Sort, and Exchange Sort |
 | **LeetCode** | `leetcode/arrays/index.cpp` | LC 1572 (Diagonal Sum), LC 867 (Transpose), LC 48 (Rotate Image), LC 485 (Max Ones) |
 | **LeetCode** | `leetcode/arrays/index2.cpp` | LC 88 (Merge Sorted Array), LC 74 (Search 2D Matrix), LC 485 (Max Consecutive Ones) |
+| **LeetCode** | `leetcode/arrays/index3.cpp` | LC 1470 (Shuffle the Array) |
+| **LeetCode** | `leetcode/arrays/index4.cpp` | LC 34 (Find First and Last Position of Element in Sorted Array) |
 
 ---
 
@@ -289,6 +293,20 @@ Dedicated competitive programming problem solutions implemented in `leetcode/arr
 7. **LeetCode 485: Max Consecutive Ones**:
    - Alternative tracking solution with test cases validating consecutive 1s streaks.
 
+#### In `leetcode/arrays/index3.cpp`:
+8. **LeetCode 1470: Shuffle the Array**:
+   - Given the array `nums` consisting of $2n$ elements in the form $[x_1, x_2, \dots, x_n, y_1, y_2, \dots, y_n]$, returns the array in the form $[x_1, y_1, x_2, y_2, \dots, x_n, y_n]$.
+   - Alternates pushing `nums[i]` and `nums[n + i]` for $i$ from $0$ to $n - 1$.
+   - **Complexity**: \(O(N)\) time, \(O(N)\) auxiliary space.
+
+#### In `leetcode/arrays/index4.cpp`:
+9. **LeetCode 34: Find First and Last Position of Element in Sorted Array**:
+   - Finds starting and ending position of a given target value in non-decreasing sorted array using **Two Binary Searches**:
+     - `startSearch`: When `nums[mid] == target`, records `ans = mid` and narrows the search left (`end = mid - 1`) to find the first occurrence.
+     - `endSearch`: When `nums[mid] == target`, records `ans = mid` and narrows the search right (`start = mid + 1`) to find the last occurrence.
+   - Returns `[-1, -1]` if target is not found.
+   - **Complexity**: \(O(\log N)\) time, \(O(1)\) auxiliary space.
+
 ---
 
 ## 🛠️ How to Compile & Run
@@ -298,9 +316,11 @@ Dedicated competitive programming problem solutions implemented in `leetcode/arr
 You can compile and run any C++ file using GCC (`g++`):
 
 ```bash
-# Example 1: Compile and run LeetCode array solutions (index and index2)
+# Example 1: Compile and run LeetCode array solutions
 g++ -std=c++17 -Wall leetcode/arrays/index.cpp -o run_lc && ./run_lc
 g++ -std=c++17 -Wall leetcode/arrays/index2.cpp -o run_lc2 && ./run_lc2
+g++ -std=c++17 -Wall leetcode/arrays/index3.cpp -o run_lc3 && ./run_lc3
+g++ -std=c++17 -Wall leetcode/arrays/index4.cpp -o run_lc4 && ./run_lc4
 
 # Example 2: Compile and run 2D matrix operations
 g++ -std=c++17 -Wall 05_arrays/array2d.cpp -o run_2d && ./run_2d
