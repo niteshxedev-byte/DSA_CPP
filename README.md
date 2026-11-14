@@ -68,10 +68,18 @@ dsa_cpp/
 │
 ├── leetcode/
 │   └── arrays/
-│       ├── index.cpp                  # LC 1572 (Diag Sum), LC 867 (Transpose), LC 48 (Rotate 90°), LC 485 (Max 1s)
-│       ├── index2.cpp                 # LC 88 (Merge Sorted Array), LC 74 (Search 2D Matrix), LC 485 (Max 1s)
-│       ├── index3.cpp                 # LC 1470 (Shuffle the Array)
-│       └── index4.cpp                 # LC 34 (Find First and Last Position of Element in Sorted Array)
+│       ├── lc_0033_search_in_rotated_sorted_array.cpp
+│       ├── lc_0034_find_first_and_last_position_of_element_in_sorted_array.cpp
+│       ├── lc_0048_rotate_image.cpp
+│       ├── lc_0069_sqrtx.cpp
+│       ├── lc_0074_search_a_2d_matrix.cpp
+│       ├── lc_0088_merge_sorted_array.cpp
+│       ├── lc_0485_max_consecutive_ones.cpp
+│       ├── lc_0724_find_pivot_index.cpp
+│       ├── lc_0867_transpose_matrix.cpp
+│       ├── lc_1470_shuffle_the_array.cpp
+│       ├── lc_1572_matrix_diagonal_sum.cpp
+│       └── lc_1991_find_the_middle_index_in_array.cpp
 │
 ├── .gitignore                         # Ignores executables (*.exe, *.out, build/)
 └── README.md                          # Repository documentation & guide
@@ -108,10 +116,18 @@ Use this lookup table to quickly locate any file and understand what it covers:
 | **06 Searching** | `06_searching/linear_search.cpp` | Iterative linear search with detailed notes |
 | **06 Searching** | `06_searching/binary_search.cpp` | Binary search with overflow-safe mid calculation |
 | **07 Sorting** | `07_sorting/sorting.cpp` | Selection Sort, Bubble Sort, Insertion Sort, and Exchange Sort |
-| **LeetCode** | `leetcode/arrays/index.cpp` | LC 1572 (Diagonal Sum), LC 867 (Transpose), LC 48 (Rotate Image), LC 485 (Max Ones) |
-| **LeetCode** | `leetcode/arrays/index2.cpp` | LC 88 (Merge Sorted Array), LC 74 (Search 2D Matrix), LC 485 (Max Consecutive Ones) |
-| **LeetCode** | `leetcode/arrays/index3.cpp` | LC 1470 (Shuffle the Array) |
-| **LeetCode** | `leetcode/arrays/index4.cpp` | LC 34 (Find First and Last Position of Element in Sorted Array) |
+| **LeetCode** | `leetcode/arrays/lc_0033_search_in_rotated_sorted_array.cpp` | LC 33: Search in Rotated Sorted Array ($O(\log N)$) |
+| **LeetCode** | `leetcode/arrays/lc_0034_find_first_and_last_position_of_element_in_sorted_array.cpp` | LC 34: Find First and Last Position in Sorted Array ($O(\log N)$) |
+| **LeetCode** | `leetcode/arrays/lc_0048_rotate_image.cpp` | LC 48: Rotate Image 90° clockwise in-place ($O(N^2)$) |
+| **LeetCode** | `leetcode/arrays/lc_0069_sqrtx.cpp` | LC 69: Sqrt(x) using Binary Search ($O(\log x)$) |
+| **LeetCode** | `leetcode/arrays/lc_0074_search_a_2d_matrix.cpp` | LC 74: Search a 2D Matrix ($O(\log(m \cdot n))$) |
+| **LeetCode** | `leetcode/arrays/lc_0088_merge_sorted_array.cpp` | LC 88: Merge Sorted Array ($O(m + n)$ optimal backwards) |
+| **LeetCode** | `leetcode/arrays/lc_0485_max_consecutive_ones.cpp` | LC 485: Max Consecutive Ones ($O(N)$) |
+| **LeetCode** | `leetcode/arrays/lc_0724_find_pivot_index.cpp` | LC 724: Find Pivot Index ($O(N)$ prefix/total sum) |
+| **LeetCode** | `leetcode/arrays/lc_0867_transpose_matrix.cpp` | LC 867: Transpose Matrix ($O(R \cdot C)$) |
+| **LeetCode** | `leetcode/arrays/lc_1470_shuffle_the_array.cpp` | LC 1470: Shuffle the Array ($O(N)$) |
+| **LeetCode** | `leetcode/arrays/lc_1572_matrix_diagonal_sum.cpp` | LC 1572: Matrix Diagonal Sum ($O(N)$) |
+| **LeetCode** | `leetcode/arrays/lc_1991_find_the_middle_index_in_array.cpp` | LC 1991: Find the Middle Index in Array ($O(N)$) |
 
 ---
 
@@ -259,53 +275,57 @@ Comparison-based sorting algorithms implemented in `07_sorting/sorting.cpp`:
 | **Exchange Sort** | \(O(N^2)\) | \(O(N^2)\) | \(O(N^2)\) | \(O(1)\) | No | Yes | Swap whenever `vec[i] > vec[j]` across nested loops |
 
 ### 8. LeetCode Practice (`leetcode/arrays/`)
-Dedicated competitive programming problem solutions implemented in `leetcode/arrays/index.cpp` and `leetcode/arrays/index2.cpp`:
+Dedicated competitive programming problem solutions, organized cleanly and numbered by question:
 
-#### In `leetcode/arrays/index.cpp`:
-1. **LeetCode 1572: Matrix Diagonal Sum**:
-   - Computes sum of primary diagonal (`mat[i][i]`) and secondary diagonal (`mat[i][n - 1 - i]`).
-   - If the matrix size is odd, the exact center element belongs to both diagonals; handled with `if (i != n - i - 1)` to avoid double counting.
-   - **Complexity**: \(O(N)\) time, \(O(1)\) space.
-2. **LeetCode 867: Transpose Matrix**:
-   - Flips a matrix over its main diagonal for any rectangular matrix of size \(R \times C \to C \times R\).
-   - Generates output matrix where `result[j][i] = matrix[i][j]`.
-   - **Complexity**: \(O(R \times C)\) time, \(O(R \times C)\) space.
-3. **LeetCode 48: Rotate Image (90° Clockwise In-Place)**:
-   - Rotates an \(N \times N\) 2D matrix clockwise without allocating another matrix.
-   - **Algorithm**:
-     1. Transpose the square matrix in-place by swapping `matrix[i][j]` with `matrix[j][i]` for all $j > i$.
-     2. Reverse every row individually using `std::reverse(matrix[i].begin(), matrix[i].end())`.
-   - **Complexity**: \(O(N^2)\) time, \(O(1)\) auxiliary space.
-4. **LeetCode 485: Max Consecutive Ones**:
-   - Scans binary array tracking `currentCount` and `maxCount = max(maxCount, currentCount)`.
-   - Resets `currentCount = 0` whenever a 0 is encountered.
-   - **Complexity**: \(O(N)\) time, \(O(1)\) space.
+1. **LeetCode 33: Search in Rotated Sorted Array (`lc_0033_search_in_rotated_sorted_array.cpp`)**:
+   - Modified Binary Search determining which half is continuously sorted, then checking if the target falls within that sorted segment.
+   - **Complexity**: \(O(\log N)\) time, \(O(1)\) space.
 
-#### In `leetcode/arrays/index2.cpp`:
-5. **LeetCode 88: Merge Sorted Array**:
-   - **Approach 1 (Append & Sort)**: Appends `nums2` into `nums1` starting at index `m` and sorts the entire array. Complexity: \(O((m + n) \log(m + n))\) time, \(O(1)\) space.
-   - **Approach 2 (Optimal 3-Pointer Backwards)**: Merges from end index `m + n - 1` downwards by comparing largest remaining elements in `nums1` and `nums2`. Complexity: \(O(m + n)\) time, \(O(1)\) space without overwriting unread elements in `nums1`.
-6. **LeetCode 74: Search a 2D Matrix**:
-   - Performs a **2-stage binary search**:
-     1. Binary search on row boundaries (`matrix[mid][0]` to `matrix[mid][cols - 1]`) to locate target row in \(O(\log m)\).
-     2. Binary search on columns within target row in \(O(\log n)\).
-   - **Overall Complexity**: \(O(\log(m \cdot n))\) time, \(O(1)\) space.
-7. **LeetCode 485: Max Consecutive Ones**:
-   - Alternative tracking solution with test cases validating consecutive 1s streaks.
-
-#### In `leetcode/arrays/index3.cpp`:
-8. **LeetCode 1470: Shuffle the Array**:
-   - Given the array `nums` consisting of $2n$ elements in the form $[x_1, x_2, \dots, x_n, y_1, y_2, \dots, y_n]$, returns the array in the form $[x_1, y_1, x_2, y_2, \dots, x_n, y_n]$.
-   - Alternates pushing `nums[i]` and `nums[n + i]` for $i$ from $0$ to $n - 1$.
-   - **Complexity**: \(O(N)\) time, \(O(N)\) auxiliary space.
-
-#### In `leetcode/arrays/index4.cpp`:
-9. **LeetCode 34: Find First and Last Position of Element in Sorted Array**:
-   - Finds starting and ending position of a given target value in non-decreasing sorted array using **Two Binary Searches**:
-     - `startSearch`: When `nums[mid] == target`, records `ans = mid` and narrows the search left (`end = mid - 1`) to find the first occurrence.
-     - `endSearch`: When `nums[mid] == target`, records `ans = mid` and narrows the search right (`start = mid + 1`) to find the last occurrence.
-   - Returns `[-1, -1]` if target is not found.
+2. **LeetCode 34: Find First and Last Position of Element in Sorted Array (`lc_0034_find_first_and_last_position_of_element_in_sorted_array.cpp`)**:
+   - Two Binary Searches (`startSearch` and `endSearch`) isolating the first and last target occurrences.
    - **Complexity**: \(O(\log N)\) time, \(O(1)\) auxiliary space.
+
+3. **LeetCode 48: Rotate Image (`lc_0048_rotate_image.cpp`)**:
+   - Rotates an \(N \times N\) matrix 90° clockwise in-place:
+     1. Transpose the square matrix in-place (`swap(matrix[i][j], matrix[j][i])`).
+     2. Reverse each row using `std::reverse`.
+   - **Complexity**: \(O(N^2)\) time, \(O(1)\) auxiliary space.
+
+4. **LeetCode 69: Sqrt(x) (`lc_0069_sqrtx.cpp`)**:
+   - Binary Search over range $[1, x/2]$ to find $\lfloor \sqrt{x} \rfloor$ with `long long` overflow prevention.
+   - **Complexity**: \(O(\log x)\) time, \(O(1)\) space.
+
+5. **LeetCode 74: Search a 2D Matrix (`lc_0074_search_a_2d_matrix.cpp`)**:
+   - 2-stage Binary Search: row binary search in \(O(\log m)\) followed by column binary search in \(O(\log n)\).
+   - **Complexity**: \(O(\log(m \cdot n))\) time, \(O(1)\) space.
+
+6. **LeetCode 88: Merge Sorted Array (`lc_0088_merge_sorted_array.cpp`)**:
+   - Approach 1: Append `nums2` and `std::sort()` in \(O((m + n)\log(m + n))\).
+   - Approach 2 (Optimal): 3-pointer backwards merge from index $m + n - 1$ down to 0 in \(O(m + n)\) time and \(O(1)\) space.
+
+7. **LeetCode 485: Max Consecutive Ones (`lc_0485_max_consecutive_ones.cpp`)**:
+   - Single-pass counter tracking streak and max count, resetting on zeros.
+   - **Complexity**: \(O(N)\) time, \(O(1)\) space.
+
+8. **LeetCode 724: Find Pivot Index (`lc_0724_find_pivot_index.cpp`)**:
+   - Computes total array sum, then scans while verifying `total - leftSum - vec[i] == leftSum`.
+   - **Complexity**: \(O(N)\) time, \(O(1)\) space.
+
+9. **LeetCode 867: Transpose Matrix (`lc_0867_transpose_matrix.cpp`)**:
+   - Transposes rectangular $R \times C \to C \times R$ matrices.
+   - **Complexity**: \(O(R \cdot C)\) time and space.
+
+10. **LeetCode 1470: Shuffle the Array (`lc_1470_shuffle_the_array.cpp`)**:
+    - Interleaves $[x_1 \dots x_n, y_1 \dots y_n]$ into $[x_1, y_1 \dots x_n, y_n]$.
+    - **Complexity**: \(O(N)\) time, \(O(N)\) auxiliary space.
+
+11. **LeetCode 1572: Matrix Diagonal Sum (`lc_1572_matrix_diagonal_sum.cpp`)**:
+    - Sums primary and secondary diagonals in single pass, omitting center duplication when $N$ is odd.
+    - **Complexity**: \(O(N)\) time, \(O(1)\) space.
+
+12. **LeetCode 1991: Find the Middle Index in Array (`lc_1991_find_the_middle_index_in_array.cpp`)**:
+    - Returns earliest index where left sum equals right sum.
+    - **Complexity**: \(O(N)\) time, \(O(1)\) space.
 
 ---
 
@@ -316,11 +336,10 @@ Dedicated competitive programming problem solutions implemented in `leetcode/arr
 You can compile and run any C++ file using GCC (`g++`):
 
 ```bash
-# Example 1: Compile and run LeetCode array solutions
-g++ -std=c++17 -Wall leetcode/arrays/index.cpp -o run_lc && ./run_lc
-g++ -std=c++17 -Wall leetcode/arrays/index2.cpp -o run_lc2 && ./run_lc2
-g++ -std=c++17 -Wall leetcode/arrays/index3.cpp -o run_lc3 && ./run_lc3
-g++ -std=c++17 -Wall leetcode/arrays/index4.cpp -o run_lc4 && ./run_lc4
+# Example: Compile and run any LeetCode problem solution
+g++ -std=c++17 -Wall leetcode/arrays/lc_0033_search_in_rotated_sorted_array.cpp -o run_lc && ./run_lc
+g++ -std=c++17 -Wall leetcode/arrays/lc_0069_sqrtx.cpp -o run_sqrt && ./run_sqrt
+g++ -std=c++17 -Wall leetcode/arrays/lc_0724_find_pivot_index.cpp -o run_pivot && ./run_pivot
 
 # Example 2: Compile and run 2D matrix operations
 g++ -std=c++17 -Wall 05_arrays/array2d.cpp -o run_2d && ./run_2d
