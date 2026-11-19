@@ -41,6 +41,7 @@ obj/
 
 # VS Code runner artifacts
 .vscode/*.log
+*/**/.vscode/
 
 # Operating System files
 .DS_Store

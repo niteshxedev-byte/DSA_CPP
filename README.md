@@ -74,6 +74,7 @@ dsa_cpp/
 │       ├── lc_0069_sqrtx.cpp
 │       ├── lc_0074_search_a_2d_matrix.cpp
 │       ├── lc_0088_merge_sorted_array.cpp
+│       ├── lc_0167_two_sum_ii_input_array_is_sorted.cpp
 │       ├── lc_0485_max_consecutive_ones.cpp
 │       ├── lc_0724_find_pivot_index.cpp
 │       ├── lc_0867_transpose_matrix.cpp
@@ -122,6 +123,7 @@ Use this lookup table to quickly locate any file and understand what it covers:
 | **LeetCode** | `leetcode/arrays/lc_0069_sqrtx.cpp` | LC 69: Sqrt(x) using Binary Search ($O(\log x)$) |
 | **LeetCode** | `leetcode/arrays/lc_0074_search_a_2d_matrix.cpp` | LC 74: Search a 2D Matrix ($O(\log(m \cdot n))$) |
 | **LeetCode** | `leetcode/arrays/lc_0088_merge_sorted_array.cpp` | LC 88: Merge Sorted Array ($O(m + n)$ optimal backwards) |
+| **LeetCode** | `leetcode/arrays/lc_0167_two_sum_ii_input_array_is_sorted.cpp` | LC 167: Two Sum II - Input Array Is Sorted ($O(N)$ Two Pointers) |
 | **LeetCode** | `leetcode/arrays/lc_0485_max_consecutive_ones.cpp` | LC 485: Max Consecutive Ones ($O(N)$) |
 | **LeetCode** | `leetcode/arrays/lc_0724_find_pivot_index.cpp` | LC 724: Find Pivot Index ($O(N)$ prefix/total sum) |
 | **LeetCode** | `leetcode/arrays/lc_0867_transpose_matrix.cpp` | LC 867: Transpose Matrix ($O(R \cdot C)$) |
@@ -303,27 +305,34 @@ Dedicated competitive programming problem solutions, organized cleanly and numbe
    - Approach 1: Append `nums2` and `std::sort()` in \(O((m + n)\log(m + n))\).
    - Approach 2 (Optimal): 3-pointer backwards merge from index $m + n - 1$ down to 0 in \(O(m + n)\) time and \(O(1)\) space.
 
-7. **LeetCode 485: Max Consecutive Ones (`lc_0485_max_consecutive_ones.cpp`)**:
+7. **LeetCode 167: Two Sum II - Input Array Is Sorted (`lc_0167_two_sum_ii_input_array_is_sorted.cpp`)**:
+   - Two Pointers technique on non-decreasing sorted array:
+     - Initialize `start = 0`, `end = n - 1`.
+     - When `numbers[start] + numbers[end] == target`, returns 1-based indices `{start + 1, end + 1}`.
+     - If the sum exceeds target, decrement `end--`; if below target, increment `start++`.
+   - **Complexity**: \(O(N)\) time, \(O(1)\) auxiliary space.
+
+8. **LeetCode 485: Max Consecutive Ones (`lc_0485_max_consecutive_ones.cpp`)**:
    - Single-pass counter tracking streak and max count, resetting on zeros.
    - **Complexity**: \(O(N)\) time, \(O(1)\) space.
 
-8. **LeetCode 724: Find Pivot Index (`lc_0724_find_pivot_index.cpp`)**:
+9. **LeetCode 724: Find Pivot Index (`lc_0724_find_pivot_index.cpp`)**:
    - Computes total array sum, then scans while verifying `total - leftSum - vec[i] == leftSum`.
    - **Complexity**: \(O(N)\) time, \(O(1)\) space.
 
-9. **LeetCode 867: Transpose Matrix (`lc_0867_transpose_matrix.cpp`)**:
-   - Transposes rectangular $R \times C \to C \times R$ matrices.
-   - **Complexity**: \(O(R \cdot C)\) time and space.
+10. **LeetCode 867: Transpose Matrix (`lc_0867_transpose_matrix.cpp`)**:
+    - Transposes rectangular $R \times C \to C \times R$ matrices.
+    - **Complexity**: \(O(R \cdot C)\) time and space.
 
-10. **LeetCode 1470: Shuffle the Array (`lc_1470_shuffle_the_array.cpp`)**:
+11. **LeetCode 1470: Shuffle the Array (`lc_1470_shuffle_the_array.cpp`)**:
     - Interleaves $[x_1 \dots x_n, y_1 \dots y_n]$ into $[x_1, y_1 \dots x_n, y_n]$.
     - **Complexity**: \(O(N)\) time, \(O(N)\) auxiliary space.
 
-11. **LeetCode 1572: Matrix Diagonal Sum (`lc_1572_matrix_diagonal_sum.cpp`)**:
+12. **LeetCode 1572: Matrix Diagonal Sum (`lc_1572_matrix_diagonal_sum.cpp`)**:
     - Sums primary and secondary diagonals in single pass, omitting center duplication when $N$ is odd.
     - **Complexity**: \(O(N)\) time, \(O(1)\) space.
 
-12. **LeetCode 1991: Find the Middle Index in Array (`lc_1991_find_the_middle_index_in_array.cpp`)**:
+13. **LeetCode 1991: Find the Middle Index in Array (`lc_1991_find_the_middle_index_in_array.cpp`)**:
     - Returns earliest index where left sum equals right sum.
     - **Complexity**: \(O(N)\) time, \(O(1)\) space.
 
