@@ -16,7 +16,8 @@ flowchart TD
     D --> E["05. Arrays & 2D Matrices<br/>(1D/2D Traversal, Two Pointers, In-place Rotations)"]
     E --> F["06. Searching Algorithms<br/>(Linear Search vs Binary Search)"]
     F --> G["07. Sorting Algorithms<br/>(Selection, Bubble, Insertion, Exchange Sort)"]
-    E --> H["08. LeetCode Practice<br/>(Diagonal Sum, Transpose, Rotate Image 90°, Consecutive Ones)"]
+    G --> H["08. Pointers & References<br/>(Memory Addresses, Dereferencing, Aliasing)"]
+    H --> I["09. LeetCode Practice<br/>(Rotated Binary Search, In-place Rotations, Two Pointers)"]
 ```
 
 ---
@@ -65,6 +66,9 @@ dsa_cpp/
 │
 ├── 07_sorting/
 │   └── sorting.cpp                    # Selection Sort, Bubble Sort, Insertion Sort, Exchange Sort
+│
+├── 08_pointers/
+│   └── 01_pointer_basics.cpp          # Pointers, dereferencing (*), address-of (&), reference aliases
 │
 ├── leetcode/
 │   └── arrays/
@@ -117,6 +121,7 @@ Use this lookup table to quickly locate any file and understand what it covers:
 | **06 Searching** | `06_searching/linear_search.cpp` | Iterative linear search with detailed notes |
 | **06 Searching** | `06_searching/binary_search.cpp` | Binary search with overflow-safe mid calculation |
 | **07 Sorting** | `07_sorting/sorting.cpp` | Selection Sort, Bubble Sort, Insertion Sort, and Exchange Sort |
+| **08 Pointers** | `08_pointers/01_pointer_basics.cpp` | Pointers (`*ptr`), address-of (`&var`), and reference variables (`&ref`) |
 | **LeetCode** | `leetcode/arrays/lc_0033_search_in_rotated_sorted_array.cpp` | LC 33: Search in Rotated Sorted Array ($O(\log N)$) |
 | **LeetCode** | `leetcode/arrays/lc_0034_find_first_and_last_position_of_element_in_sorted_array.cpp` | LC 34: Find First and Last Position in Sorted Array ($O(\log N)$) |
 | **LeetCode** | `leetcode/arrays/lc_0048_rotate_image.cpp` | LC 48: Rotate Image 90° clockwise in-place ($O(N^2)$) |
@@ -276,7 +281,14 @@ Comparison-based sorting algorithms implemented in `07_sorting/sorting.cpp`:
 | **Insertion Sort** | \(O(N)\) | \(O(N^2)\) | \(O(N^2)\) | \(O(1)\) | Yes | Yes | Repeatedly swap backwards into sorted partition |
 | **Exchange Sort** | \(O(N^2)\) | \(O(N^2)\) | \(O(N^2)\) | \(O(1)\) | No | Yes | Swap whenever `vec[i] > vec[j]` across nested loops |
 
-### 8. LeetCode Practice (`leetcode/arrays/`)
+### 8. Pointers & References (`08_pointers/`)
+Core C++ memory management, addressing, and referencing fundamentals:
+- **Address-of Operator (`&`)**: Retrieves the hexadecimal memory address where a variable resides in RAM.
+- **Pointers (`int *ptr = &var`)**: A variable holding the memory address of another variable.
+- **Dereference Operator (`*ptr`)**: Accesses or modifies the value stored at the address pointed to by `ptr`.
+- **Reference Variables (`int &ref = var`)**: An alias or alternative identifier sharing the exact same memory location as `var`, allowing direct in-place modifications without pointer syntax.
+
+### 9. LeetCode Practice (`leetcode/arrays/`)
 Dedicated competitive programming problem solutions, organized cleanly and numbered by question:
 
 1. **LeetCode 33: Search in Rotated Sorted Array (`lc_0033_search_in_rotated_sorted_array.cpp`)**:
@@ -358,6 +370,9 @@ g++ -std=c++17 -Wall 05_arrays/ArrayAll.cpp -o run_all && ./run_all
 
 # Example 4: Compile and run sorting algorithms
 g++ -std=c++17 -Wall 07_sorting/sorting.cpp -o run_sort && ./run_sort
+
+# Example 5: Compile and run pointer & reference basics
+g++ -std=c++17 -Wall 08_pointers/01_pointer_basics.cpp -o run_ptr && ./run_ptr
 ```
 
 ### Method 2: In VS Code
