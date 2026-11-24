@@ -17,7 +17,8 @@ flowchart TD
     E --> F["06. Searching Algorithms<br/>(Linear Search vs Binary Search)"]
     F --> G["07. Sorting Algorithms<br/>(Selection, Bubble, Insertion, Exchange Sort)"]
     G --> H["08. Pointers & References<br/>(Memory Addresses, Dereferencing, Aliasing)"]
-    H --> I["09. LeetCode Practice<br/>(Rotated Binary Search, In-place Rotations, Two Pointers)"]
+    H --> I["09. Object-Oriented Programming (OOP)<br/>(Classes, Encapsulation, Inheritance, Friend Functions)"]
+    I --> J["10. LeetCode Practice<br/>(Rotated Binary Search, In-place Rotations, Two Pointers)"]
 ```
 
 ---
@@ -69,6 +70,17 @@ dsa_cpp/
 │
 ├── 08_pointers/
 │   └── 01_pointer_basics.cpp          # Pointers, dereferencing (*), address-of (&), reference aliases
+│
+├── 09_oops/
+│   ├── 01_classes_and_objects.cpp     # Class definition, public data members, instantiation, arrow/dot operator
+│   ├── 02_class_methods.cpp           # Inside & outside class member functions using scope resolution (::)
+│   ├── 03_constructors_and_destructors.cpp # Default & parameterized constructors, this pointer, destructor
+│   ├── 04_access_specifiers.cpp       # Private vs Public, state variables, CarAgency & Buyer model
+│   ├── 05_modular_class_design.cpp    # Modular 3-class design (CarAgency, Car, Buyer)
+│   ├── 06_encapsulation_and_friend.cpp # Encapsulation, getter/setter validation, friend functions
+│   ├── 07_inheritance_basics.cpp      # Single & hierarchical inheritance, constructor chaining, override
+│   ├── 08_multilevel_inheritance.cpp  # Multilevel inheritance (Vechical -> Car -> SportsCar), protected access
+│   └── comments_guide.txt             # Visual comments guide (// !, // ?, // *, // TODO, // NOTE)
 │
 ├── leetcode/
 │   └── arrays/
@@ -122,6 +134,15 @@ Use this lookup table to quickly locate any file and understand what it covers:
 | **06 Searching** | `06_searching/binary_search.cpp` | Binary search with overflow-safe mid calculation |
 | **07 Sorting** | `07_sorting/sorting.cpp` | Selection Sort, Bubble Sort, Insertion Sort, and Exchange Sort |
 | **08 Pointers** | `08_pointers/01_pointer_basics.cpp` | Pointers (`*ptr`), address-of (`&var`), and reference variables (`&ref`) |
+| **09 OOP** | `09_oops/01_classes_and_objects.cpp` | Class definition, public data members, instantiation, arrow/dot operator |
+| **09 OOP** | `09_oops/02_class_methods.cpp` | Inside & outside member functions with scope resolution (`::`) |
+| **09 OOP** | `09_oops/03_constructors_and_destructors.cpp` | Default & parameterized constructors, `this` pointer, destructor execution |
+| **09 OOP** | `09_oops/04_access_specifiers.cpp` | `private` vs `public` access control, state management, CarAgency & Buyer |
+| **09 OOP** | `09_oops/05_modular_class_design.cpp` | Modular multi-class architecture: `CarAgency`, `Car`, `Buyer` |
+| **09 OOP** | `09_oops/06_encapsulation_and_friend.cpp` | Encapsulation, data hiding, validation getters/setters, `friend` functions |
+| **09 OOP** | `09_oops/07_inheritance_basics.cpp` | Single & hierarchical inheritance, constructor chaining `: Vehical(...)`, method override |
+| **09 OOP** | `09_oops/08_multilevel_inheritance.cpp` | Multilevel inheritance (`Vechical` $\to$ `Car` $\to$ `SportsCar`), `protected` access, `friend` |
+| **09 OOP** | `09_oops/comments_guide.txt` | Better Comments cheat sheet for standardized code documentation |
 | **LeetCode** | `leetcode/arrays/lc_0033_search_in_rotated_sorted_array.cpp` | LC 33: Search in Rotated Sorted Array ($O(\log N)$) |
 | **LeetCode** | `leetcode/arrays/lc_0034_find_first_and_last_position_of_element_in_sorted_array.cpp` | LC 34: Find First and Last Position in Sorted Array ($O(\log N)$) |
 | **LeetCode** | `leetcode/arrays/lc_0048_rotate_image.cpp` | LC 48: Rotate Image 90° clockwise in-place ($O(N^2)$) |
@@ -288,7 +309,47 @@ Core C++ memory management, addressing, and referencing fundamentals:
 - **Dereference Operator (`*ptr`)**: Accesses or modifies the value stored at the address pointed to by `ptr`.
 - **Reference Variables (`int &ref = var`)**: An alias or alternative identifier sharing the exact same memory location as `var`, allowing direct in-place modifications without pointer syntax.
 
-### 9. LeetCode Practice (`leetcode/arrays/`)
+### 9. Object-Oriented Programming (OOP) (`09_oops/`)
+Core Object-Oriented Programming pillars, design patterns, and C++ language mechanisms:
+- **`01_classes_and_objects.cpp` (Classes & Objects)**:
+  - User-defined blueprint `class` creating custom types.
+  - Instantiating objects on stack memory.
+  - Setting and accessing public data attributes with dot `.` and arrow `->` operators.
+- **`02_class_methods.cpp` (Class Methods)**:
+  - Defining member methods inside class declaration.
+  - Defining methods outside the class using the scope resolution operator (`::`).
+  - Accessing internal object attributes directly within class member scope.
+- **`03_constructors_and_destructors.cpp` (Constructors & Destructors)**:
+  - Default constructors, parameterized constructors, and initializer lists.
+  - Disambiguating shadowed member variable names using the `this` self-pointer (`this->x = x`).
+  - Automatic destructor execution (`~ClassName()`) cleaning up resources when objects leave scope.
+- **`04_access_specifiers.cpp` (Access Specifiers & State Management)**:
+  - Understanding `private` (accessible only within class) vs `public` (accessible anywhere).
+  - Business logic modeling: `CarAgency` managing inventory and `Buyer` purchasing cars via methods rather than direct state variable mutation.
+- **`05_modular_class_design.cpp` (Modular Architecture)**:
+  - Clean separation of concerns between `CarAgency`, `Car`, and `Buyer` classes.
+  - Object composition and method chaining.
+- **`06_encapsulation_and_friend.cpp` (Encapsulation & Friend Functions)**:
+  - **Encapsulation**: Bundling state and behaviors together while preventing unauthorized external modification via validated getters and setters.
+  - **`friend` Functions**: Non-member functions granted special privileges to access `private` and `protected` class members without breaking class encapsulation.
+- **`07_inheritance_basics.cpp` (Single & Hierarchical Inheritance)**:
+  - Code reusability through inheritance (`class Car : public Vehical`).
+  - Hierarchical inheritance sharing base class `Vehical` across multiple derived classes (`Car`, `Truck`).
+  - Base class constructor chaining (`Car(...) : Vehical(...)`).
+  - Method overriding where derived classes customize base class behaviors.
+- **`08_multilevel_inheritance.cpp` (Multilevel Inheritance & Protected Specifier)**:
+  - Multilevel inheritance chains (`Vechical` $\to$ `Car` $\to$ `SportsCar`).
+  - `protected` access specifier: hidden from outside code, accessible to derived classes.
+  - Accessing protected base members through friend functions.
+- **`comments_guide.txt` (Code Commenting Standards)**:
+  - Quick reference for VS Code Better Comments tags:
+    - `// !` Critical alerts / warnings
+    - `// ?` Questions / queries
+    - `// *` Important highlights
+    - `// TODO` Upcoming refactors / tasks
+    - `// NOTE` Key architectural observations
+
+### 10. LeetCode Practice (`leetcode/arrays/`)
 Dedicated competitive programming problem solutions, organized cleanly and numbered by question:
 
 1. **LeetCode 33: Search in Rotated Sorted Array (`lc_0033_search_in_rotated_sorted_array.cpp`)**:
@@ -373,6 +434,10 @@ g++ -std=c++17 -Wall 07_sorting/sorting.cpp -o run_sort && ./run_sort
 
 # Example 5: Compile and run pointer & reference basics
 g++ -std=c++17 -Wall 08_pointers/01_pointer_basics.cpp -o run_ptr && ./run_ptr
+
+# Example 6: Compile and run OOP fundamentals
+g++ -std=c++17 -Wall 09_oops/01_classes_and_objects.cpp -o run_oop && ./run_oop
+g++ -std=c++17 -Wall 09_oops/08_multilevel_inheritance.cpp -o run_inherit && ./run_inherit
 ```
 
 ### Method 2: In VS Code

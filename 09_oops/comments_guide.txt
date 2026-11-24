@@ -1,0 +1,8 @@
+// ! This comment will be highlighted in RED (Alert / Warning)
+// ? This comment will be in BLUE (Question)
+// * This comment will be in GREEN (Highlight)
+// TODO: This comment will be in ORANGE (To-do item)
+// NOTE: This comment will be in WHITE (Notes / Definition)
+/* NOTE :
+   Multi-line comments starting with NOTE will also be in WHITE
+*/
