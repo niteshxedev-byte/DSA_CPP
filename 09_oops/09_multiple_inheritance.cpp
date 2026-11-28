@@ -1,4 +1,4 @@
-// !multiple inheritance
+`// !multiple inheritance
 #include <iostream>
 #include <string>
 using namespace std;
