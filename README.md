@@ -28,45 +28,93 @@ flowchart TD
 ```text
 dsa_cpp/
 ├── 01_maths/
-│   ├── basic_maths_part1.cpp          # Digit extraction, count, reverse, palindrome, min/max digit
-│   └── basic_maths_part2.cpp          # Loops 1-to-N, tables, factorial, Fibonacci, divisors/factors
+│   ├── check_palindrome_number.cpp    # Check if an integer is a palindrome
+│   ├── count_digits.cpp               # Count total digits in O(log10 N)
+│   ├── count_even_and_odd_digits.cpp  # Separate counts of even and odd digits
+│   ├── factorial_iterative.cpp        # Compute N! iteratively
+│   ├── fibonacci_series.cpp           # Generate first N Fibonacci numbers
+│   ├── min_and_max_digit.cpp          # Find smallest and largest digit in an integer
+│   ├── multiplication_table.cpp       # Print N x 1 through N x 10 table
+│   ├── print_1_to_n.cpp               # Print 1 to N sequentially
+│   ├── print_all_digits.cpp           # Extract and print digits right-to-left
+│   ├── print_all_factors.cpp          # Print all proper divisors of N
+│   ├── print_even_and_odd_1_to_n.cpp  # Print even and odd numbers up to N
+│   ├── reverse_number.cpp             # Reverse digits of an integer
+│   ├── sum_1_to_n.cpp                 # Sum integers from 1 to N
+│   └── sum_of_digits.cpp              # Sum all digits of an integer
 │
 ├── 02_patterns/
-│   ├── 01_basic_patterns.cpp          # Squares, right triangles, inverted triangles, Floyd's, 0-1
-│   ├── 02_medium_patterns.cpp         # Half pyramids, number and character pyramids
-│   ├── 03_advance_patterns.cpp        # Full pyramids, inverted pyramids, diamond patterns
-│   └── 04_hard_patterns.cpp           # Mirrored pyramids, hollow diamonds, concentric number spiral
+│   ├── butterfly_star_pattern.cpp     # Symmetric butterfly star pattern
+│   ├── diamond_star_pattern.cpp       # Centered full diamond star pattern
+│   ├── full_star_pyramid.cpp          # Centered full & inverted star pyramids
+│   ├── hollow_diamond_frame_pattern.cpp # Hollow diamond cutout star frame
+│   ├── palindrome_number_pyramid.cpp  # Centered 1 / 1 2 1 / 1 2 3 2 1 pyramid
+│   ├── right_aligned_alphabet_triangles.cpp # Mirrored alphabet triangles
+│   ├── right_aligned_number_triangles.cpp   # Mirrored number triangles
+│   ├── right_aligned_star_triangle.cpp      # Mirrored star triangle
+│   ├── square_alphabet_patterns.cpp         # N x N alphabet & offset grids
+│   ├── square_row_col_number_patterns.cpp   # N x N row/col/counting grids
+│   ├── square_squares_and_cubes_patterns.cpp # N x N j^2 and j^3 grids
+│   ├── square_star_and_constant_patterns.cpp # N x N star & constant number grids
+│   ├── triangle_alphabet_patterns.cpp       # Half-pyramid alphabet triangles
+│   ├── triangle_number_patterns.cpp         # Half-pyramid number triangles
+│   └── triangle_star_and_inverted.cpp       # Right-angled & inverted star triangles
 │
 ├── 03_stl/
 │   ├── stl_containers_overview.cpp    # Vector, Deque, List, Set, Map, Stack, Queue, Priority Queue
 │   └── vector_operations.cpp          # Vector iterations, push_back, pop_back demos
 │
 ├── 04_recursion/
-│   ├── 01_recursion_basics.cpp        # Factorial, 1-to-N, N-to-1, recursive vector printing
-│   ├── 02_recrussion.cpp              # Forward/rev counting, recursive sum, average, factorial
-│   ├── 03_recrussion.cpp              # Pointer-based array recursion: check sorted, sum, print
-│   ├── diagrams/
-│   │   ├── recursion_call_stack.png       # Call stack memory diagram
-│   │   ├── reverse_array_extra_vector.png # Auxiliary array recursion trace
-│   │   └── reverse_array_two_pointer.png  # Two-pointer swap recursion trace
-│   └── practice/
-│       ├── recursive_linear_search.cpp    # Linear search implemented via recursion
-│       ├── reverse_array_extra_vector.cpp # Array reversal with extra vector (O(N) space)
-│       └── reverse_array_two_pointer.cpp  # Array reversal in-place with two pointers (O(1) aux space)
+│   ├── binary_search_recursion.cpp         # Divide-and-conquer binary search via recursion (O(log N))
+│   ├── check_if_array_is_sorted.cpp        # Pointer-arithmetic recursion to verify sorted order
+│   ├── factorial_using_recursion.cpp       # Recursive factorial calculation (O(N))
+│   ├── linear_search_recursion.cpp         # Linear search implemented via recursion
+│   ├── print_array_elements_recursively.cpp # Print vector/array elements recursively
+│   ├── print_counting_forward.cpp          # Print 1-to-N and range counting recursively
+│   ├── print_counting_reverse.cpp          # Print N-to-1 counting recursively
+│   ├── reverse_array_extra_vector.cpp      # Array reversal with extra vector (O(N) space)
+│   ├── reverse_array_two_pointer.cpp       # Array reversal in-place with two pointers (O(1) space)
+│   ├── sum_and_average_of_array.cpp        # Recursive sum and average calculation
+│   └── diagrams/
+│       ├── recursion_call_stack.png        # Call stack memory diagram
+│       ├── reverse_array_extra_vector.png  # Auxiliary array recursion trace
+│       └── reverse_array_two_pointer.png   # Two-pointer swap recursion trace
 │
 ├── 05_arrays/
-│   ├── 01_array_basics.cpp            # Static array declarations, garbage values, char arrays
-│   ├── 02_array_operations.cpp        # Array traversal, doubling, even/odd, count 0/1, min/max
-│   ├── 03_array_problems.cpp          # Check sorted, Two Sum, Max Consecutive Ones, Left/Right Rotate
-│   ├── array2d.cpp                    # 2D arrays & vectors, row/col-wise traversal, row/col sum, matrix search
-│   └── ArrayAll.cpp                   # Comprehensive 1D operations: sum, avg, 2nd min/max, shuffle, palindrome
+│   ├── array_basics_and_char_arrays.cpp    # Static int arrays, uninitialized garbage values, char arrays
+│   ├── check_if_array_is_sorted.cpp        # Single-pass check for non-decreasing order
+│   ├── check_palindrome_array.cpp          # Two-pointer palindrome check
+│   ├── count_zeros_and_ones.cpp            # Count 0s and 1s in a binary array
+│   ├── find_even_and_odd_numbers.cpp       # Filter and print even and odd elements
+│   ├── find_min_and_max_in_array.cpp       # Find minimum and maximum elements in O(N)
+│   ├── find_second_largest_and_smallest.cpp # Find 2nd largest & 2nd smallest in single pass
+│   ├── left_rotate_array_by_one.cpp        # Left rotate array elements by 1 position
+│   ├── linear_search_in_array.cpp          # Linear search returning target index or -1
+│   ├── matrix_linear_search.cpp            # Search target coordinates (row, col) in 2D matrix
+│   ├── matrix_min_and_max.cpp              # Find min and max values in a 2D matrix
+│   ├── matrix_row_and_column_sum.cpp       # Compute row-wise and column-wise sums
+│   ├── matrix_row_and_column_traversal.cpp # Row-major and column-major 2D array traversal
+│   ├── max_consecutive_ones.cpp            # Longest streak of consecutive 1s in binary array
+│   ├── merge_two_sorted_subarrays.cpp      # Merge two sorted subarrays arr[low..mid] & arr[mid+1..high]
+│   ├── multiply_array_elements.cpp         # Double values / multiply vector elements by 10
+│   ├── remove_duplicates_from_sorted_array.cpp # Remove duplicates in-place (Two Pointers)
+│   ├── reverse_array_two_pointer.cpp       # Reverse array via extra vector & two-pointer swap
+│   ├── right_rotate_array_by_one.cpp       # Right rotate array elements by 1 position
+│   ├── shuffle_array_fisher_yates.cpp      # Fisher-Yates random shuffle in O(N)
+│   ├── sum_and_average_of_array.cpp        # Sum and average of vector elements
+│   └── two_sum_brute_force.cpp             # Brute force O(N^2) pair-sum search
 │
 ├── 06_searching/
 │   ├── linear_search.cpp              # Linear search algorithm (O(N))
 │   └── binary_search.cpp              # Binary search on sorted array (O(log N))
 │
 ├── 07_sorting/
-│   └── sorting.cpp                    # Selection Sort, Bubble Sort, Insertion Sort, Exchange Sort
+│   ├── bubble_sort.cpp                # Bubble Sort with early-exit flag (O(N) best, O(N^2) worst)
+│   ├── exchange_sort.cpp              # Exchange Sort comparing i vs j > i (O(N^2))
+│   ├── insertion_sort.cpp             # Insertion Sort (O(N) best, O(N^2) worst)
+│   ├── merge_sort.cpp                 # Merge Sort divide-and-conquer (O(N log N))
+│   ├── quick_sort.cpp                 # Quick Sort using Lomuto partition (O(N log N) avg)
+│   └── selection_sort.cpp             # Selection Sort selecting minimum element (O(N^2))
 │
 ├── 08_pointers/
 │   └── 01_pointer_basics.cpp          # Pointers, dereferencing (*), address-of (&), reference aliases
@@ -99,6 +147,7 @@ dsa_cpp/
 │       └── lc_1991_find_the_middle_index_in_array.cpp
 │
 ├── .gitignore                         # Ignores executables (*.exe, *.out, build/)
+├── index.html                         # Interactive question checklist with tick marks & search
 └── README.md                          # Repository documentation & guide
 ```
 
@@ -110,29 +159,78 @@ Use this lookup table to quickly locate any file and understand what it covers:
 
 | Category | File Path | What it Covers |
 | :--- | :--- | :--- |
-| **01 Maths** | `01_maths/basic_maths_part1.cpp` | Digit extraction, palindrome, min/max digits, sum of digits |
-| **01 Maths** | `01_maths/basic_maths_part2.cpp` | Loops 1-to-N, Fibonacci, Factorial, proper factors |
-| **02 Patterns** | `02_patterns/01_basic_patterns.cpp` | 12 starter pattern problems (squares, triangles, Floyd's, 0-1) |
-| **02 Patterns** | `02_patterns/02_medium_patterns.cpp` | Intermediate pyramid & triangle patterns |
-| **02 Patterns** | `02_patterns/03_advance_patterns.cpp` | Full pyramids & diamond patterns |
-| **02 Patterns** | `02_patterns/04_hard_patterns.cpp` | Hollow diamonds & concentric number spiral |
+| **01 Maths** | `01_maths/check_palindrome_number.cpp` | Check whether an integer is a palindrome |
+| **01 Maths** | `01_maths/count_digits.cpp` | Count digits in $O(\log_{10} N)$ time |
+| **01 Maths** | `01_maths/count_even_and_odd_digits.cpp` | Count even and odd digits in a number |
+| **01 Maths** | `01_maths/factorial_iterative.cpp` | Iterative $N!$ computation |
+| **01 Maths** | `01_maths/fibonacci_series.cpp` | Print first $N$ Fibonacci terms |
+| **01 Maths** | `01_maths/min_and_max_digit.cpp` | Minimum and maximum digit in an integer |
+| **01 Maths** | `01_maths/multiplication_table.cpp` | Multiplication table from 1 to 10 |
+| **01 Maths** | `01_maths/print_1_to_n.cpp` | Loop printing 1 to $N$ |
+| **01 Maths** | `01_maths/print_all_digits.cpp` | Extract and print all digits |
+| **01 Maths** | `01_maths/print_all_factors.cpp` | List proper factors of $N$ |
+| **01 Maths** | `01_maths/print_even_and_odd_1_to_n.cpp` | Print even and odd integers up to $N$ |
+| **01 Maths** | `01_maths/reverse_number.cpp` | Reverse digits of an integer |
+| **01 Maths** | `01_maths/sum_1_to_n.cpp` | Sum integers from 1 to $N$ |
+| **01 Maths** | `01_maths/sum_of_digits.cpp` | Sum all digits of an integer |
+| **02 Patterns** | `02_patterns/butterfly_star_pattern.cpp` | Symmetric butterfly star pattern |
+| **02 Patterns** | `02_patterns/diamond_star_pattern.cpp` | Centered full diamond star pattern |
+| **02 Patterns** | `02_patterns/full_star_pyramid.cpp` | Centered full and inverted star pyramids |
+| **02 Patterns** | `02_patterns/hollow_diamond_frame_pattern.cpp` | Hollow diamond cutout star frame |
+| **02 Patterns** | `02_patterns/palindrome_number_pyramid.cpp` | Centered palindrome number pyramid |
+| **02 Patterns** | `02_patterns/right_aligned_alphabet_triangles.cpp` | Mirrored alphabet triangles |
+| **02 Patterns** | `02_patterns/right_aligned_number_triangles.cpp` | Mirrored number triangles |
+| **02 Patterns** | `02_patterns/right_aligned_star_triangle.cpp` | Mirrored star triangle |
+| **02 Patterns** | `02_patterns/square_alphabet_patterns.cpp` | $N \times N$ alphabet and offset grids |
+| **02 Patterns** | `02_patterns/square_row_col_number_patterns.cpp` | $N \times N$ row, column, and counting grids |
+| **02 Patterns** | `02_patterns/square_squares_and_cubes_patterns.cpp` | $N \times N$ $j^2$ and $j^3$ grids |
+| **02 Patterns** | `02_patterns/square_star_and_constant_patterns.cpp` | $N \times N$ star and constant number squares |
+| **02 Patterns** | `02_patterns/triangle_alphabet_patterns.cpp` | Half-pyramid alphabet triangles |
+| **02 Patterns** | `02_patterns/triangle_number_patterns.cpp` | Half-pyramid number triangles |
+| **02 Patterns** | `02_patterns/triangle_star_and_inverted.cpp` | Right-angled and inverted star triangles |
 | **03 STL** | `03_stl/stl_containers_overview.cpp` | Complete STL container guide with generic print templates |
 | **03 STL** | `03_stl/vector_operations.cpp` | Vector traversal methods and `.pop_back()` behavior |
-| **04 Recursion** | `04_recursion/01_recursion_basics.cpp` | Core recursion (factorial, 1-to-N, vector traversal) |
-| **04 Recursion** | `04_recursion/02_recrussion.cpp` | Forward/reverse counting, recursive vector sum & average, factorial |
-| **04 Recursion** | `04_recursion/03_recrussion.cpp` | Pointer arithmetic recursion (`arr + 1`, `size - 1`), check if array is sorted, array sum |
+| **04 Recursion** | `04_recursion/binary_search_recursion.cpp` | Recursive Binary Search on sorted vector ($O(\log N)$) |
+| **04 Recursion** | `04_recursion/check_if_array_is_sorted.cpp` | Pointer-arithmetic recursion (`arr + 1`, `size - 1`) to check sorted order |
+| **04 Recursion** | `04_recursion/factorial_using_recursion.cpp` | Recursive factorial calculation with $N \le 0$ base case |
+| **04 Recursion** | `04_recursion/linear_search_recursion.cpp` | Linear search using recursion with safe boundary checks |
+| **04 Recursion** | `04_recursion/print_array_elements_recursively.cpp` | Print vector and pointer-based array elements recursively |
+| **04 Recursion** | `04_recursion/print_counting_forward.cpp` | Print 1-to-N and range counting recursively |
+| **04 Recursion** | `04_recursion/print_counting_reverse.cpp` | Print N-to-1 counting recursively |
+| **04 Recursion** | `04_recursion/reverse_array_extra_vector.cpp` | Reverse array via recursion with extra vector ($O(N)$ space) |
+| **04 Recursion** | `04_recursion/reverse_array_two_pointer.cpp` | Reverse array in-place via recursion using two pointers ($O(1)$ space) |
+| **04 Recursion** | `04_recursion/sum_and_average_of_array.cpp` | Recursive array/vector sum and average calculation |
 | **04 Recursion** | `04_recursion/diagrams/` | Call stack memory & two-pointer swap hand traces |
-| **04 Recursion** | `04_recursion/practice/recursive_linear_search.cpp` | Linear search using recursion |
-| **04 Recursion** | `04_recursion/practice/reverse_array_extra_vector.cpp` | Reverse array via recursion with new vector |
-| **04 Recursion** | `04_recursion/practice/reverse_array_two_pointer.cpp` | Reverse array via recursion using two pointers |
-| **05 Arrays** | `05_arrays/01_array_basics.cpp` | Static arrays, memory garbage values, char arrays |
-| **05 Arrays** | `05_arrays/02_array_operations.cpp` | Min/max, counting 0s/1s, even/odd, basic search |
-| **05 Arrays** | `05_arrays/03_array_problems.cpp` | Check sorted, Two Sum, Consecutive Ones, Rotate by 1, Vector Reverse |
-| **05 Arrays** | `05_arrays/array2d.cpp` | 2D array row/col traversal, row/col sum vectors, matrix search & min/max |
-| **05 Arrays** | `05_arrays/ArrayAll.cpp` | 14+ utility operations (sum, avg, 2nd min/max, Fisher-Yates shuffle, palindrome, sorting) |
+| **05 Arrays** | `05_arrays/array_basics_and_char_arrays.cpp` | Static arrays, uninitialized garbage values, char arrays |
+| **05 Arrays** | `05_arrays/check_if_array_is_sorted.cpp` | Single-pass sorted check ($O(N)$) |
+| **05 Arrays** | `05_arrays/check_palindrome_array.cpp` | Two-pointer palindrome check ($O(N)$) |
+| **05 Arrays** | `05_arrays/count_zeros_and_ones.cpp` | Count 0s and 1s in a binary array |
+| **05 Arrays** | `05_arrays/find_even_and_odd_numbers.cpp` | Filter and print even and odd elements |
+| **05 Arrays** | `05_arrays/find_min_and_max_in_array.cpp` | Single-pass minimum and maximum element search |
+| **05 Arrays** | `05_arrays/find_second_largest_and_smallest.cpp` | Find 2nd largest & 2nd smallest elements in $O(N)$ |
+| **05 Arrays** | `05_arrays/left_rotate_array_by_one.cpp` | Left rotate array by 1 position in-place |
+| **05 Arrays** | `05_arrays/linear_search_in_array.cpp` | Linear search returning target index or -1 |
+| **05 Arrays** | `05_arrays/matrix_linear_search.cpp` | Search target `(row, col)` coordinates in 2D matrix |
+| **05 Arrays** | `05_arrays/matrix_min_and_max.cpp` | Find extreme values across a 2D matrix |
+| **05 Arrays** | `05_arrays/matrix_row_and_column_sum.cpp` | Compute row-wise and column-wise sum vectors |
+| **05 Arrays** | `05_arrays/matrix_row_and_column_traversal.cpp` | Row-major and column-major 2D traversal |
+| **05 Arrays** | `05_arrays/max_consecutive_ones.cpp` | Find longest streak of consecutive 1s |
+| **05 Arrays** | `05_arrays/merge_two_sorted_subarrays.cpp` | Merge `arr[low..mid]` and `arr[mid+1..high]` |
+| **05 Arrays** | `05_arrays/multiply_array_elements.cpp` | Print doubled values & scale vector elements by 10 |
+| **05 Arrays** | `05_arrays/remove_duplicates_from_sorted_array.cpp` | Remove duplicates in-place using two pointers |
+| **05 Arrays** | `05_arrays/reverse_array_two_pointer.cpp` | Reverse array using extra vector & two pointers |
+| **05 Arrays** | `05_arrays/right_rotate_array_by_one.cpp` | Right rotate array by 1 position in-place |
+| **05 Arrays** | `05_arrays/shuffle_array_fisher_yates.cpp` | Fisher-Yates randomization in $O(N)$ |
+| **05 Arrays** | `05_arrays/sum_and_average_of_array.cpp` | Sum and average of vector elements |
+| **05 Arrays** | `05_arrays/two_sum_brute_force.cpp` | Brute force $O(N^2)$ pair-sum search |
 | **06 Searching** | `06_searching/linear_search.cpp` | Iterative linear search with detailed notes |
 | **06 Searching** | `06_searching/binary_search.cpp` | Binary search with overflow-safe mid calculation |
-| **07 Sorting** | `07_sorting/sorting.cpp` | Selection Sort, Bubble Sort, Insertion Sort, and Exchange Sort |
+| **07 Sorting** | `07_sorting/bubble_sort.cpp` | Bubble Sort with early-exit optimization ($O(N)$ best, $O(N^2)$ worst) |
+| **07 Sorting** | `07_sorting/exchange_sort.cpp` | Exchange Sort comparing `vec[i]` against subsequent elements ($O(N^2)$) |
+| **07 Sorting** | `07_sorting/insertion_sort.cpp` | Insertion Sort ($O(N)$ best, $O(N^2)$ worst) |
+| **07 Sorting** | `07_sorting/merge_sort.cpp` | Divide-and-conquer Merge Sort ($O(N \log N)$) |
+| **07 Sorting** | `07_sorting/quick_sort.cpp` | Lomuto partition Quick Sort ($O(N \log N)$ avg) |
+| **07 Sorting** | `07_sorting/selection_sort.cpp` | Selection Sort selecting minimum element ($O(N^2)$) |
 | **08 Pointers** | `08_pointers/01_pointer_basics.cpp` | Pointers (`*ptr`), address-of (`&var`), and reference variables (`&ref`) |
 | **09 OOP** | `09_oops/01_classes_and_objects.cpp` | Class definition, public data members, instantiation, arrow/dot operator |
 | **09 OOP** | `09_oops/02_class_methods.cpp` | Inside & outside member functions with scope resolution (`::`) |
@@ -199,62 +297,46 @@ Mastery over C++ STL containers and algorithms:
   - `std::priority_queue`: Heap-based (Max-Heap by default), \(O(\log N)\) push/pop, \(O(1)\) top.
 
 ### 4. Recursion (`04_recursion/`)
-Thinking recursively: breaking large problems into smaller identical sub-problems.
+Thinking recursively: breaking large problems into smaller identical sub-problems, organized one question per file:
 - **Anatomy of Recursion**:
   1. **Base Case**: The stopping condition that prevents infinite calls and stack overflow.
   2. **Self Work / Small Computation**: What this specific frame computes.
   3. **Recursive Call**: Calling the function with modified arguments moving towards the base case.
 
 - **Files in this Module**:
-  - **`01_recursion_basics.cpp`**: Core concepts — Factorial calculation (\(O(N)\)), printing 1 to 5, printing 5 to 10, and printing elements of a vector recursively.
-  - **`02_recrussion.cpp`**:
-    - Counting reverse (`printcountingREV`): prints $N$ down to 1.
-    - Counting forward (`printcountingFwd`): prints 1 up to $N$ using an index default parameter.
-    - Recursive vector summation (`calculateSUM`): `nums[size-1] + calculateSUM(nums, size-1)`.
-    - Recursive average calculation (`calculateAvg`): divides recursive sum by size.
-    - Factorial with clean $N = 0$ base case.
-  - **`03_recrussion.cpp`**:
-    - **Pointer Arithmetic Recursion Pattern**: Demonstrates passing `arr + 1` and decrementing `size - 1` without maintaining separate index variables.
-    - **Check if Array is Sorted (`isVectorSorted`)**:
-      - Base case: `size <= 1` $\to$ `true`.
-      - Check: if `arr[0] > arr[1]` $\to$ `false`.
-      - Recurse: `isVectorSorted(arr + 1, size - 1)`.
-    - Recursive array traversal and summation using raw pointers.
-  - **`practice/recursive_linear_search.cpp`**: Finding target recursively with safe boundary checks.
-  - **`practice/reverse_array_extra_vector.cpp`**: Reverse array recursively by pushing into a new vector (\(O(N)\) space).
-  - **`practice/reverse_array_two_pointer.cpp`**: In-place two-pointer recursive swap (\(O(1)\) auxiliary memory).
+  - **`factorial_using_recursion.cpp`**: Factorial calculation (\(O(N)\)) with $N \le 0$ base case.
+  - **`print_counting_reverse.cpp`**: Prints $N$ down to 1 recursively.
+  - **`print_counting_forward.cpp`**: Prints 1 up to $N$ and arbitrary ranges recursively.
+  - **`print_array_elements_recursively.cpp`**: Traverses both `std::vector` (indexed) and raw arrays (`arr + 1`, `size - 1`).
+  - **`sum_and_average_of_array.cpp`**: Recursive sum and average calculation using vector and pointer recursion.
+  - **`check_if_array_is_sorted.cpp`**: Pointer-arithmetic recursion verifying sorted order (`arr[0] > arr[1]` $\to$ `false`).
+  - **`linear_search_recursion.cpp`**: Finding target index recursively with safe boundary checks.
+  - **`binary_search_recursion.cpp`**: Divide-and-conquer binary search on sorted array via recursion (\(O(\log N)\)).
+  - **`reverse_array_extra_vector.cpp`**: Reverse array recursively by pushing into a new vector (\(O(N)\) space).
+  - **`reverse_array_two_pointer.cpp`**: In-place two-pointer recursive swap (\(O(1)\) auxiliary memory).
   - **`diagrams/`**: Hand-drawn traces of call stacks and two-pointer swap mechanisms.
 
 ### 5. Arrays & 2D Matrices (`05_arrays/`)
-Contiguous memory data structures, matrix operations, and fundamental algorithmic patterns.
-- **`01_array_basics.cpp`**:
-  - Static vs dynamic arrays.
-  - Understanding uninitialized stack memory (garbage values).
-  - Character arrays and null termination.
-- **`02_array_operations.cpp`**:
-  - Linear scan for finding minimum and maximum elements in \(O(N)\).
-  - Counting occurrences of specific values (e.g. 0s and 1s).
-  - Filtering even and odd numbers.
-- **`03_array_problems.cpp`**:
-  - **Check if Array is Sorted**: Single-pass adjacent comparison \(O(N)\).
-  - **Two Sum (Brute Force)**: Nested loops checking all pairs \((i, j)\) summing to target (\(O(N^2)\) time, \(O(1)\) space).
-  - **Max Consecutive Ones**: Tracking current streak `cs` and best streak `ans` (\(O(N)\) time).
-  - **Left Rotate by 1**: Storing `arr[0]`, shifting all elements left, placing `arr[0]` at the end.
-  - **Right Rotate by 1**: Storing `arr[n-1]`, shifting elements right, placing `arr[n-1]` at index 0.
-  - **Two-Pointer Vector Reverse**: Swapping `arr[left]` and `arr[right]` while `left < right` in \(O(N)\) time and \(O(1)\) space.
-- **`array2d.cpp` (2D Arrays & 2D Vectors)**:
-  - **Row-major Traversal**: Iterating row by row (`arr[i][j]`).
-  - **Column-major Traversal**: Iterating column by column (`arr[j][i]`).
-  - **Row-wise Sum Vector**: Accumulating sums of each row into a 1D vector.
-  - **Column-wise Sum Vector**: Accumulating sums of each column into a 1D vector.
-  - **Matrix Linear Search**: Finding `(row, col)` coordinate of a target in a 2D matrix in \(O(R \times C)\).
-  - **Matrix Min/Max**: Finding extreme values across dynamic 2D vectors.
-- **`ArrayAll.cpp` (Comprehensive Utility Suite)**:
-  - Average, sum, max, and min calculations.
-  - **Second Maximum & Second Minimum**: Single-pass boundary updates without full sorting.
-  - **Randomization (Fisher-Yates Shuffle)**: Randomly shuffling array elements in \(O(N)\) time using `rand() % (i + 1)` and `swap()`.
-  - **Palindrome Verification**: Two-pointer outer-to-inner symmetric equality checks.
-  - In-place reversing, deep copying, and sort verification.
+Contiguous memory data structures, 1D/2D matrix operations, and fundamental algorithmic patterns, organized cleanly one question per file:
+- **Fundamentals & Traversals**:
+  - **`array_basics_and_char_arrays.cpp`**: Static arrays, uninitialized stack garbage values, and character arrays.
+  - **`multiply_array_elements.cpp`**, **`sum_and_average_of_array.cpp`**, **`find_even_and_odd_numbers.cpp`**, **`count_zeros_and_ones.cpp`**: Element-wise scaling, aggregation, filtering, and counting.
+- **Searching, Extremes & Order Checks**:
+  - **`linear_search_in_array.cpp`**: Sequential target search returning index or `-1`.
+  - **`find_min_and_max_in_array.cpp`**: Single-pass extreme element search in \(O(N)\).
+  - **`find_second_largest_and_smallest.cpp`**: Single-pass second largest and second smallest distinct values in \(O(N)\).
+  - **`check_if_array_is_sorted.cpp`**: Single-pass adjacent comparison \(O(N)\).
+- **Two Pointers, Rotations & Transformations**:
+  - **`reverse_array_two_pointer.cpp`**: Extra-vector reversal (\(O(N)\) space) and in-place two-pointer swap (\(O(1)\) space).
+  - **`check_palindrome_array.cpp`**: Outer-to-inner symmetric equality checks.
+  - **`left_rotate_array_by_one.cpp`** & **`right_rotate_array_by_one.cpp`**: Single-step cyclic shifts in \(O(N)\).
+  - **`remove_duplicates_from_sorted_array.cpp`**: In-place deduplication returning unique length.
+  - **`merge_two_sorted_subarrays.cpp`**: Merging `arr[low..mid]` and `arr[mid+1..high]`.
+  - **`max_consecutive_ones.cpp`**, **`two_sum_brute_force.cpp`**, **`shuffle_array_fisher_yates.cpp`**: Streak tracking, \(O(N^2)\) pair search, and Fisher-Yates shuffle.
+- **2D Arrays & Matrices**:
+  - **`matrix_row_and_column_traversal.cpp`**: Row-major (`arr[i][j]`) and column-major (`arr[j][i]`) traversal.
+  - **`matrix_row_and_column_sum.cpp`**: Accumulating row-wise and column-wise sums into 1D vectors.
+  - **`matrix_linear_search.cpp`** & **`matrix_min_and_max.cpp`**: Finding `(row, col)` coordinates and extreme values across 2D matrices.
 
 ### 6. Searching Algorithms (`06_searching/`)
 Comparing sequential search with logarithmic divide-and-conquer search.
@@ -272,26 +354,32 @@ Comparing sequential search with logarithmic divide-and-conquer search.
 > ```
 
 ### 7. Sorting Algorithms (`07_sorting/`)
-Comparison-based sorting algorithms implemented in `07_sorting/sorting.cpp`:
+Comparison-based and divide-and-conquer sorting algorithms, each in its own standalone file:
 
-- **Selection Sort**:
+- **Selection Sort (`selection_sort.cpp`)**:
   - **Concept**: Divides the array into sorted and unsorted regions. In each pass, finds the minimum element in the unsorted portion and swaps it with the first unsorted element.
   - **Time Complexity**: \(O(N^2)\) in all cases (best, average, worst).
   - **Space Complexity**: \(O(1)\) in-place.
-- **Bubble Sort**:
-  - **Concept**: Repeatedly steps through the array, compares adjacent elements, and swaps them if they are in the wrong order. Larger elements "bubble up" to the end with each pass.
-  - **Optimization**: Uses a `blockswap` flag. If no swaps occur in a full pass, the array is already sorted, terminating early in \(O(N)\).
+- **Bubble Sort (`bubble_sort.cpp`)**:
+  - **Concept**: Repeatedly steps through the array, compares adjacent elements, and swaps them if they are in the wrong order. Uses a `swapped` flag to terminate early in \(O(N)\) if already sorted.
   - **Time Complexity**: \(O(N^2)\) worst/average, \(O(N)\) best case.
   - **Space Complexity**: \(O(1)\) in-place.
-- **Insertion Sort**:
-  - **Concept**: Builds the sorted array one element at a time. Takes the element at `i` and repeatedly swaps it backwards while it is smaller than its preceding neighbor.
-  - **Analogy**: Similar to sorting playing cards in your hand.
+- **Insertion Sort (`insertion_sort.cpp`)**:
+  - **Concept**: Builds the sorted array one element at a time by swapping backwards while smaller than the preceding element.
   - **Time Complexity**: \(O(N)\) best case (when already sorted), \(O(N^2)\) worst case.
   - **Space Complexity**: \(O(1)\) in-place.
-- **Exchange Sort**:
-  - **Concept**: Compares the current element `vec[i]` against all subsequent elements `vec[j]` ($j > i$) and swaps immediately whenever an out-of-order pair is found.
+- **Exchange Sort (`exchange_sort.cpp`)**:
+  - **Concept**: Compares the current element `vec[i]` against all subsequent elements `vec[j]` ($j > i$) and swaps immediately whenever `vec[i] > vec[j]`.
   - **Time Complexity**: \(O(N^2)\) in all cases.
   - **Space Complexity**: \(O(1)\) in-place.
+- **Merge Sort (`merge_sort.cpp`)**:
+  - **Concept**: Divide-and-conquer sorting that splits the array into halves recursively and merges sorted halves back together.
+  - **Time Complexity**: \(O(N \log N)\) in all cases.
+  - **Space Complexity**: \(O(N)\) auxiliary space.
+- **Quick Sort (`quick_sort.cpp`)**:
+  - **Concept**: Divide-and-conquer using Lomuto partition around a pivot element so smaller elements sit left and larger sit right.
+  - **Time Complexity**: \(O(N \log N)\) best/average, \(O(N^2)\) worst case.
+  - **Space Complexity**: \(O(\log N)\) recursion stack average.
 
 #### Sorting Comparison Matrix
 
@@ -301,6 +389,8 @@ Comparison-based sorting algorithms implemented in `07_sorting/sorting.cpp`:
 | **Bubble Sort** | \(O(N)\)* | \(O(N^2)\) | \(O(N^2)\) | \(O(1)\) | Yes | Yes | Swap adjacent out-of-order elements (*with swap flag) |
 | **Insertion Sort** | \(O(N)\) | \(O(N^2)\) | \(O(N^2)\) | \(O(1)\) | Yes | Yes | Repeatedly swap backwards into sorted partition |
 | **Exchange Sort** | \(O(N^2)\) | \(O(N^2)\) | \(O(N^2)\) | \(O(1)\) | No | Yes | Swap whenever `vec[i] > vec[j]` across nested loops |
+| **Merge Sort** | \(O(N \log N)\) | \(O(N \log N)\) | \(O(N \log N)\) | \(O(N)\) | Yes | No | Recursively split and merge sorted halves |
+| **Quick Sort** | \(O(N \log N)\) | \(O(N \log N)\) | \(O(N^2)\) | \(O(\log N)\) | No | Yes | Partition around pivot and sort subarrays |
 
 ### 8. Pointers & References (`08_pointers/`)
 Core C++ memory management, addressing, and referencing fundamentals:
@@ -424,13 +514,14 @@ g++ -std=c++17 -Wall leetcode/arrays/lc_0069_sqrtx.cpp -o run_sqrt && ./run_sqrt
 g++ -std=c++17 -Wall leetcode/arrays/lc_0724_find_pivot_index.cpp -o run_pivot && ./run_pivot
 
 # Example 2: Compile and run 2D matrix operations
-g++ -std=c++17 -Wall 05_arrays/array2d.cpp -o run_2d && ./run_2d
+g++ -std=c++17 -Wall 05_arrays/matrix_row_and_column_sum.cpp -o run_2d && ./run_2d
 
-# Example 3: Compile and run comprehensive array utilities
-g++ -std=c++17 -Wall 05_arrays/ArrayAll.cpp -o run_all && ./run_all
+# Example 3: Compile and run array questions
+g++ -std=c++17 -Wall 05_arrays/find_second_largest_and_smallest.cpp -o run_arr && ./run_arr
 
 # Example 4: Compile and run sorting algorithms
-g++ -std=c++17 -Wall 07_sorting/sorting.cpp -o run_sort && ./run_sort
+g++ -std=c++17 -Wall 07_sorting/merge_sort.cpp -o run_sort && ./run_sort
+g++ -std=c++17 -Wall 07_sorting/quick_sort.cpp -o run_qsort && ./run_qsort
 
 # Example 5: Compile and run pointer & reference basics
 g++ -std=c++17 -Wall 08_pointers/01_pointer_basics.cpp -o run_ptr && ./run_ptr

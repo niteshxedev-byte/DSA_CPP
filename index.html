@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none';">
+  <meta name="color-scheme" content="light dark">
+  <title>DSA C++ Question Tracker</title>
+  <style>
+    :root {
+      --bg: #F1F5F9;
+      --surface: #FFFFFF;
+      --surface-subtle: #F8FAFC;
+      --border: #CBD5E1;
+      --ink: #0F172A;
+      --muted: #475569;
+      --accent: #1D4ED8;
+      --done: #059669;
+      --done-bg: #ECFDF5;
+      --pending: #D97706;
+      --pending-bg: #FFFBEB;
+      --focus-ring: rgba(29, 78, 216, 0.35);
+      --radius: 10px;
+      --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+      --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0B1220;
+        --surface: #131C31;
+        --surface-subtle: #19233C;
+        --border: #263554;
+        --ink: #E2E8F0;
+        --muted: #94A3B8;
+        --accent: #60A5FA;
+        --done: #34D399;
+        --done-bg: rgba(16, 185, 129, 0.14);
+        --pending: #FBBF24;
+        --pending-bg: rgba(245, 158, 11, 0.14);
+        --focus-ring: rgba(96, 165, 250, 0.4);
+      }
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 28px 20px 64px;
+    }
+
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .title-block p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .progress-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      min-width: 240px;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      font-size: 0.875rem;
+      margin-bottom: 8px;
+    }
+
+    .progress-meta strong {
+      font-family: var(--font-mono);
+      color: var(--done);
+      font-size: 0.95rem;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--done);
+      transition: width 240ms ease;
+    }
+
+    .controls {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .search-input {
+      flex: 1 1 260px;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface-subtle);
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 0.92rem;
+    }
+
+    .search-input:focus {
+      outline: 2px solid var(--focus-ring);
+      border-color: var(--accent);
+    }
+
+    .status-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--surface-subtle);
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 6px 11px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .pill:hover {
+      border-color: var(--accent);
+      color: var(--ink);
+    }
+
+    .pill[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #FFFFFF;
+    }
+
+    .pill:focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    .module-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .reset-btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 0.82rem;
+      padding: 6px 11px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .reset-btn:hover {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .modules {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .module-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .module-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--surface-subtle);
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+
+    .module-header::-webkit-details-marker {
+      display: none;
+    }
+
+    .module-section:not([open]) .module-header {
+      border-bottom: none;
+    }
+
+    .module-header:focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: -2px;
+    }
+
+    .module-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chevron {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: var(--muted);
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 160ms ease;
+      flex-shrink: 0;
+    }
+
+    .module-section[open] .chevron {
+      transform: rotate(90deg);
+    }
+
+    .module-title {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .module-count {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .question-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .question-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .question-row:last-child {
+      border-bottom: none;
+    }
+
+    .question-row.is-checked {
+      background: var(--surface);
+    }
+
+    .question-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    /* Native checkbox visually paired with SVG tick so keyboard and screen readers work natively */
+    .tick-label {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .tick-input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      margin: 0;
+      cursor: pointer;
+    }
+
+    .tick-box {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 1.5px solid var(--border);
+      background: var(--surface-subtle);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 160ms ease, border-color 160ms ease;
+    }
+
+    .tick-svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: #FFFFFF;
+      stroke-width: 2.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 22;
+      stroke-dashoffset: 22;
+      transition: stroke-dashoffset 200ms ease;
+    }
+
+    .tick-input:checked + .tick-box {
+      background: var(--done);
+      border-color: var(--done);
+    }
+
+    .tick-input:checked + .tick-box .tick-svg {
+      stroke-dashoffset: 0;
+    }
+
+    .tick-input:focus-visible + .tick-box {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    .question-info {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .question-name {
+      font-size: 0.94rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .question-row.is-checked .question-name {
+      color: var(--ink);
+    }
+
+    .question-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .question-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .status-badge {
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .status-badge.done {
+      background: var(--done-bg);
+      color: var(--done);
+    }
+
+    .status-badge.pending {
+      background: var(--pending-bg);
+      color: var(--pending);
+    }
+
+    .file-link {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 4px 8px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface-subtle);
+      max-width: 310px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .file-link:hover {
+      border-color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--muted);
+    }
+
+    @media (max-width: 720px) {
+      .question-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .question-right {
+        padding-left: 34px;
+        flex-wrap: wrap;
+      }
+      .file-link {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <div class="title-block">
+        <h1>DSA C++ Question Checklist</h1>
+        <p>Track solved questions across every module in this repository.</p>
+      </div>
+      <div class="progress-card" aria-live="polite">
+        <div class="progress-meta">
+          <span>Completed</span>
+          <strong id="progress-text">0 / 0</strong>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </div>
+    </header>
+
+    <section class="controls" aria-label="Filter questions">
+      <div class="control-row">
+        <input
+          type="search"
+          id="search-box"
+          class="search-input"
+          placeholder="Search by question name, topic, or filename..."
+          aria-label="Search questions"
+        >
+        <div class="status-group" role="group" aria-label="Filter by completion status">
+          <button type="button" class="pill" data-status="all" aria-pressed="true">All</button>
+          <button type="button" class="pill" data-status="done" aria-pressed="false">Ticked</button>
+          <button type="button" class="pill" data-status="pending" aria-pressed="false">Pending</button>
+          <button type="button" class="reset-btn" id="toggle-collapse-btn">Collapse all</button>
+          <button type="button" class="reset-btn" id="untick-all-btn">Untick all</button>
+          <button type="button" class="reset-btn" id="tick-all-btn">Tick existing</button>
+        </div>
+      </div>
+      <div class="module-pills" id="module-pills" role="group" aria-label="Filter by module"></div>
+    </section>
+
+    <main class="modules" id="modules-container"></main>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      // Standalone local file checklist without a backend; localStorage tracks what the user has personally solved.
+      const STORAGE_KEY = "dsa_cpp_user_solved_v2";
+
+      const MODULES = [
+        {
+          id: "01_maths",
+          label: "01 Maths",
+          title: "01. Basic Maths",
+          items: [
+            { path: "01_maths/print_all_digits.cpp", name: "Print All Digits", desc: "Extract and print digits right-to-left using modulo 10.", done: true },
+            { path: "01_maths/count_digits.cpp", name: "Count Digits", desc: "Count total digits in an integer in O(log10 N) time.", done: true },
+            { path: "01_maths/count_even_and_odd_digits.cpp", name: "Count Even and Odd Digits", desc: "Separate count of even and odd digits in a number.", done: true },
+            { path: "01_maths/reverse_number.cpp", name: "Reverse a Number", desc: "Reverse digits of an integer arithmetically.", done: true },
+            { path: "01_maths/check_palindrome_number.cpp", name: "Check Palindrome Number", desc: "Verify if a number reads the same backwards.", done: true },
+            { path: "01_maths/min_and_max_digit.cpp", name: "Min and Max Digit", desc: "Find smallest and largest digit inside an integer.", done: true },
+            { path: "01_maths/sum_of_digits.cpp", name: "Sum of Digits", desc: "Accumulate sum of all digits of an integer.", done: true },
+            { path: "01_maths/print_1_to_n.cpp", name: "Print 1 to N", desc: "Loop-based sequential number printing from 1 to N.", done: true },
+            { path: "01_maths/print_even_and_odd_1_to_n.cpp", name: "Print Even and Odd (1 to N)", desc: "Filter even and odd integers up to N.", done: true },
+            { path: "01_maths/multiplication_table.cpp", name: "Multiplication Table", desc: "Print N x 1 through N x 10 multiplication table.", done: true },
+            { path: "01_maths/sum_1_to_n.cpp", name: "Sum of 1 to N", desc: "Sum first N natural numbers iteratively.", done: true },
+            { path: "01_maths/factorial_iterative.cpp", name: "Factorial (Iterative)", desc: "Compute N! using 64-bit integer accumulation.", done: true },
+            { path: "01_maths/fibonacci_series.cpp", name: "Fibonacci Series", desc: "Generate first N Fibonacci terms in O(1) space.", done: true },
+            { path: "01_maths/print_all_factors.cpp", name: "Print All Proper Factors", desc: "List all divisors of N strictly less than N.", done: true }
+          ]
+        },
+        {
+          id: "02_patterns",
+          label: "02 Patterns",
+          title: "02. Pattern Programming",
+          items: [
+            { path: "02_patterns/square_star_and_constant_patterns.cpp", name: "Solid Star & Constant Number Squares", desc: "Print N x N grids of stars, 10s, and 4s.", done: true },
+            { path: "02_patterns/square_row_col_number_patterns.cpp", name: "Row, Column & Continuous Squares", desc: "Row-number, col-number, reverse col, and 1..25 squares.", done: true },
+            { path: "02_patterns/square_squares_and_cubes_patterns.cpp", name: "Squared & Cubed Number Grids", desc: "Print N x N grids of j^2 and j^3.", done: true },
+            { path: "02_patterns/square_alphabet_patterns.cpp", name: "Alphabet Square Patterns", desc: "Row letters, column letters, and offset grids from 'F'.", done: true },
+            { path: "02_patterns/triangle_star_and_inverted.cpp", name: "Right-Angled & Inverted Star Triangles", desc: "Classic increasing and decreasing star triangles.", done: true },
+            { path: "02_patterns/triangle_number_patterns.cpp", name: "Half-Pyramid Number Triangles", desc: "Increasing, repeated row, reverse i..1, inverted, and N-down triangles.", done: true },
+            { path: "02_patterns/triangle_alphabet_patterns.cpp", name: "Half-Pyramid Alphabet Triangles", desc: "Row letters, column letters, and inverted letter triangles.", done: true },
+            { path: "02_patterns/right_aligned_star_triangle.cpp", name: "Right-Aligned Star Triangle", desc: "Mirrored star triangle padded with leading spaces.", done: true },
+            { path: "02_patterns/right_aligned_number_triangles.cpp", name: "Right-Aligned Number Triangles", desc: "Mirrored row, column, reverse, and descending-from-N triangles.", done: true },
+            { path: "02_patterns/right_aligned_alphabet_triangles.cpp", name: "Right-Aligned Alphabet Triangles", desc: "Mirrored column, row, and reverse alphabet triangles.", done: true },
+            { path: "02_patterns/full_star_pyramid.cpp", name: "Full & Inverted Star Pyramids", desc: "Centered odd-count star pyramids.", done: true },
+            { path: "02_patterns/palindrome_number_pyramid.cpp", name: "Palindrome Number Pyramid", desc: "Centered 1 / 1 2 1 / 1 2 3 2 1 pyramid.", done: true },
+            { path: "02_patterns/diamond_star_pattern.cpp", name: "Diamond Star Pattern", desc: "Combined upper and lower centered star pyramids.", done: true },
+            { path: "02_patterns/hollow_diamond_frame_pattern.cpp", name: "Hollow Diamond Frame Pattern", desc: "Symmetric star frame enclosing a central diamond cutout.", done: true },
+            { path: "02_patterns/butterfly_star_pattern.cpp", name: "Butterfly Star Pattern", desc: "Symmetric left/right star wings expanding and contracting.", done: true }
+          ]
+        },
+        {
+          id: "03_stl",
+          label: "03 STL",
+          title: "03. C++ STL",
+          items: [
+            { path: "03_stl/stl_containers_overview.cpp", name: "STL Containers Overview", desc: "Vector, Deque, List, Set, Map, Stack, Queue, Priority Queue.", done: true },
+            { path: "03_stl/vector_operations.cpp", name: "Vector Operations", desc: "Vector initialization, push_back, pop_back, and iteration.", done: true }
+          ]
+        },
+        {
+          id: "04_recursion",
+          label: "04 Recursion",
+          title: "04. Recursion",
+          items: [
+            { path: "04_recursion/factorial_using_recursion.cpp", name: "Factorial Using Recursion", desc: "Compute N! recursively in O(N) time.", done: true },
+            { path: "04_recursion/print_counting_reverse.cpp", name: "Print Counting Reverse (N to 1)", desc: "Print N down to 1 via head recursion.", done: true },
+            { path: "04_recursion/print_counting_forward.cpp", name: "Print Counting Forward (1 to N)", desc: "Print 1 to N and custom [start..end] range recursively.", done: true },
+            { path: "04_recursion/print_array_elements_recursively.cpp", name: "Print Array Elements Recursively", desc: "Traverse vector by index and array by pointer arithmetic.", done: true },
+            { path: "04_recursion/sum_and_average_of_array.cpp", name: "Sum & Average of Array (Recursion)", desc: "Compute array sum and average recursively.", done: true },
+            { path: "04_recursion/check_if_array_is_sorted.cpp", name: "Check If Array Is Sorted (Recursion)", desc: "Verify sorted order using arr + 1 and size - 1.", done: true },
+            { path: "04_recursion/linear_search_recursion.cpp", name: "Linear Search Using Recursion", desc: "Find target index recursively with safe boundary check.", done: true },
+            { path: "04_recursion/binary_search_recursion.cpp", name: "Binary Search Using Recursion", desc: "Divide-and-conquer binary search in O(log N) via recursion.", done: true },
+            { path: "04_recursion/reverse_array_extra_vector.cpp", name: "Reverse Array (Extra Vector)", desc: "Recursive reversal using auxiliary vector in O(N) space.", done: true },
+            { path: "04_recursion/reverse_array_two_pointer.cpp", name: "Reverse Array (Two Pointers)", desc: "In-place recursive two-pointer swap in O(1) extra space.", done: true }
+          ]
+        },
+        {
+          id: "05_arrays",
+          label: "05 Arrays",
+          title: "05. Arrays & 2D Matrices",
+          items: [
+            { path: "05_arrays/array_basics_and_char_arrays.cpp", name: "Array Basics & Char Arrays", desc: "Static int arrays, char arrays, and uninitialized memory demo.", done: true },
+            { path: "05_arrays/find_even_and_odd_numbers.cpp", name: "Find Even and Odd Numbers", desc: "Filter and print even/odd values in an array.", done: true },
+            { path: "05_arrays/count_zeros_and_ones.cpp", name: "Count Zeros and Ones", desc: "Count 0s and 1s in a binary array.", done: true },
+            { path: "05_arrays/multiply_array_elements.cpp", name: "Multiply Array Elements", desc: "Print doubled values and scale vector elements by 10.", done: true },
+            { path: "05_arrays/sum_and_average_of_array.cpp", name: "Sum and Average of Array", desc: "Compute total sum and floating-point average.", done: true },
+            { path: "05_arrays/linear_search_in_array.cpp", name: "Linear Search in Array", desc: "Find target index in O(N) or return -1.", done: true },
+            { path: "05_arrays/find_min_and_max_in_array.cpp", name: "Find Min and Max in Array", desc: "Single-pass minimum and maximum search.", done: true },
+            { path: "05_arrays/find_second_largest_and_smallest.cpp", name: "Second Largest & Second Smallest", desc: "Find 2nd largest and 2nd smallest distinct elements in O(N).", done: true },
+            { path: "05_arrays/check_if_array_is_sorted.cpp", name: "Check If Array Is Sorted", desc: "Verify non-decreasing order in a single pass.", done: true },
+            { path: "05_arrays/reverse_array_two_pointer.cpp", name: "Reverse Array (Two Pointers)", desc: "Extra-vector and in-place two-pointer reversal.", done: true },
+            { path: "05_arrays/check_palindrome_array.cpp", name: "Check Palindrome Array", desc: "Symmetric two-pointer equality check.", done: true },
+            { path: "05_arrays/left_rotate_array_by_one.cpp", name: "Left Rotate Array by 1", desc: "Shift elements left by one position in-place.", done: true },
+            { path: "05_arrays/right_rotate_array_by_one.cpp", name: "Right Rotate Array by 1", desc: "Shift elements right by one position in-place.", done: true },
+            { path: "05_arrays/remove_duplicates_from_sorted_array.cpp", name: "Remove Duplicates from Sorted Array", desc: "In-place two-pointer deduplication.", done: true },
+            { path: "05_arrays/merge_two_sorted_subarrays.cpp", name: "Merge Two Sorted Subarrays", desc: "Merge arr[low..mid] and arr[mid+1..high] in O(N).", done: true },
+            { path: "05_arrays/max_consecutive_ones.cpp", name: "Max Consecutive Ones", desc: "Track longest streak of 1s in binary array.", done: true },
+            { path: "05_arrays/two_sum_brute_force.cpp", name: "Two Sum (Brute Force)", desc: "Find index pairs summing to target in O(N^2).", done: true },
+            { path: "05_arrays/shuffle_array_fisher_yates.cpp", name: "Fisher-Yates Array Shuffle", desc: "Unbiased O(N) in-place randomization.", done: true },
+            { path: "05_arrays/matrix_row_and_column_traversal.cpp", name: "2D Matrix Row & Column Traversal", desc: "Row-major and column-major 2D matrix iteration.", done: true },
+            { path: "05_arrays/matrix_row_and_column_sum.cpp", name: "2D Matrix Row & Column Sums", desc: "Compute row-wise and column-wise sum vectors.", done: true },
+            { path: "05_arrays/matrix_linear_search.cpp", name: "2D Matrix Linear Search", desc: "Locate target (row, col) coordinates in O(R x C).", done: true },
+            { path: "05_arrays/matrix_min_and_max.cpp", name: "2D Matrix Min and Max", desc: "Find minimum and maximum values in a 2D vector.", done: true }
+          ]
+        },
+        {
+          id: "06_searching",
+          label: "06 Searching",
+          title: "06. Searching Algorithms",
+          items: [
+            { path: "06_searching/linear_search.cpp", name: "Linear Search", desc: "Sequential search working on unsorted arrays in O(N).", done: true },
+            { path: "06_searching/binary_search.cpp", name: "Binary Search", desc: "Divide-and-conquer search on sorted arrays in O(log N).", done: true },
+            { path: "06_searching/jump_search.cpp", name: "Jump Search", desc: "Block-jumping search on sorted arrays in O(sqrt(N)) (file empty).", done: false },
+            { path: "06_searching/exponential_seacrh.cpp", name: "Exponential Search", desc: "Range-doubling + binary search (file empty).", done: false },
+            { path: "06_searching/interpolation._search.cpp", name: "Interpolation Search", desc: "Probe-position search for uniformly distributed arrays (file empty).", done: false }
+          ]
+        },
+        {
+          id: "07_sorting",
+          label: "07 Sorting",
+          title: "07. Sorting Algorithms",
+          items: [
+            { path: "07_sorting/selection_sort.cpp", name: "Selection Sort", desc: "Select minimum element per pass in O(N^2).", done: true },
+            { path: "07_sorting/bubble_sort.cpp", name: "Bubble Sort", desc: "Adjacent swap sort with early-exit flag.", done: true },
+            { path: "07_sorting/insertion_sort.cpp", name: "Insertion Sort", desc: "Build sorted prefix one element at a time.", done: true },
+            { path: "07_sorting/exchange_sort.cpp", name: "Exchange Sort", desc: "Direct pairwise comparison and immediate swap.", done: true },
+            { path: "07_sorting/merge_sort.cpp", name: "Merge Sort", desc: "Divide-and-conquer sorting in O(N log N).", done: true },
+            { path: "07_sorting/quick_sort.cpp", name: "Quick Sort", desc: "Lomuto partition divide-and-conquer sort.", done: true }
+          ]
+        },
+        {
+          id: "08_pointers",
+          label: "08 Pointers",
+          title: "08. Pointers & References",
+          items: [
+            { path: "08_pointers/01_pointer_basics.cpp", name: "Pointer & Reference Basics", desc: "Address-of (&), pointers (*), dereferencing, and reference aliases.", done: true }
+          ]
+        },
+        {
+          id: "09_oops",
+          label: "09 OOP",
+          title: "09. Object-Oriented Programming",
+          items: [
+            { path: "09_oops/01_classes_and_objects.cpp", name: "Classes and Objects", desc: "Class declaration, public attributes, dot & arrow operators.", done: true },
+            { path: "09_oops/02_class_methods.cpp", name: "Class Methods & Scope Resolution", desc: "Inside vs outside member definitions using ::.", done: true },
+            { path: "09_oops/03_constructors_and_destructors.cpp", name: "Constructors & Destructors", desc: "Default/parameterized constructors, this pointer, destructor.", done: true },
+            { path: "09_oops/04_access_specifiers.cpp", name: "Access Specifiers", desc: "Private vs public state management with CarAgency & Buyer.", done: true },
+            { path: "09_oops/05_modular_class_design.cpp", name: "Modular Class Design", desc: "Multi-class architecture separating CarAgency, Car, Buyer.", done: true },
+            { path: "09_oops/06_encapsulation_and_friend.cpp", name: "Encapsulation & Friend Functions", desc: "Validated getters/setters and friend access.", done: true },
+            { path: "09_oops/07_inheritance_basics.cpp", name: "Single & Hierarchical Inheritance", desc: "Base constructor chaining and method overriding.", done: true },
+            { path: "09_oops/08_multilevel_inheritance.cpp", name: "Multilevel Inheritance & Protected", desc: "Vechical -> Car -> SportsCar hierarchy with protected members.", done: true },
+            { path: "09_oops/09_multiple_inheritance.cpp", name: "Multiple Inheritance", desc: "Hybridcar inheriting from ElectricMotor and PetrolEngine.", done: true },
+            { path: "09_oops/10_polymorphism.cpp", name: "Polymorphism Basics", desc: "Compile-time function overloading.", done: true }
+          ]
+        },
+        {
+          id: "leetcode",
+          label: "LeetCode",
+          title: "10. LeetCode Practice",
+          items: [
+            { path: "leetcode/arrays/lc_0033_search_in_rotated_sorted_array.cpp", name: "LC 33: Search in Rotated Sorted Array", desc: "Modified binary search in O(log N).", done: true },
+            { path: "leetcode/arrays/lc_0034_find_first_and_last_position_of_element_in_sorted_array.cpp", name: "LC 34: First & Last Position in Sorted Array", desc: "Lower/upper bound binary search in O(log N).", done: true },
+            { path: "leetcode/arrays/lc_0048_rotate_image.cpp", name: "LC 48: Rotate Image", desc: "Transpose + reverse rows for 90-degree clockwise rotation.", done: true },
+            { path: "leetcode/arrays/lc_0069_sqrtx.cpp", name: "LC 69: Sqrt(x)", desc: "Binary search on answer space with overflow protection.", done: true },
+            { path: "leetcode/arrays/lc_0074_search_a_2d_matrix.cpp", name: "LC 74: Search a 2D Matrix", desc: "Two-stage binary search in O(log(m * n)).", done: true },
+            { path: "leetcode/arrays/lc_0088_merge_sorted_array.cpp", name: "LC 88: Merge Sorted Array", desc: "Three-pointer backwards merge in O(m + n) time, O(1) space.", done: true },
+            { path: "leetcode/arrays/lc_0167_two_sum_ii_input_array_is_sorted.cpp", name: "LC 167: Two Sum II (Sorted Input)", desc: "Two pointers in O(N) time and O(1) space.", done: true },
+            { path: "leetcode/arrays/lc_0485_max_consecutive_ones.cpp", name: "LC 485: Max Consecutive Ones", desc: "Single-pass streak tracking in O(N).", done: true },
+            { path: "leetcode/arrays/lc_0724_find_pivot_index.cpp", name: "LC 724: Find Pivot Index", desc: "Prefix vs suffix sum balance in O(N).", done: true },
+            { path: "leetcode/arrays/lc_0867_transpose_matrix.cpp", name: "LC 867: Transpose Matrix", desc: "Transpose R x C matrix into C x R.", done: true },
+            { path: "leetcode/arrays/lc_1470_shuffle_the_array.cpp", name: "LC 1470: Shuffle the Array", desc: "Interleave x and y halves in O(N).", done: true },
+            { path: "leetcode/arrays/lc_1572_matrix_diagonal_sum.cpp", name: "LC 1572: Matrix Diagonal Sum", desc: "Primary and secondary diagonal sum handling odd center.", done: true },
+            { path: "leetcode/arrays/lc_1991_find_the_middle_index_in_array.cpp", name: "LC 1991: Find the Middle Index", desc: "Earliest equilibrium index in O(N).", done: true },
+            { path: "leetcode/arrays/modifiedmerge.cpp", name: "LC 912: Hybrid Merge + Insertion Sort", desc: "Cache-friendly merge sort with insertion cutoff (threshold 32).", done: true }
+          ]
+        }
+      ];
+
+      function getEmptyCheckedMap() {
+        const map = {};
+        for (const mod of MODULES) {
+          for (const item of mod.items) {
+            map[item.path] = false;
+          }
+        }
+        return map;
+      }
+
+      function getRepoSolvedMap() {
+        const map = {};
+        for (const mod of MODULES) {
+          for (const item of mod.items) {
+            map[item.path] = Boolean(item.done);
+          }
+        }
+        return map;
+      }
+
+      function loadCheckedState() {
+        const state = getEmptyCheckedMap();
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return state;
+          const parsed = JSON.parse(raw);
+          if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return state;
+          for (const key of Object.keys(state)) {
+            if (typeof parsed[key] === "boolean") {
+              state[key] = parsed[key];
+            }
+          }
+        } catch (_err) {
+          // Ignore storage read errors in restricted file:// contexts
+        }
+        return state;
+      }
+
+      function saveCheckedState(state) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (_err) {
+          // Ignore storage quota or private-mode restrictions
+        }
+      }
+
+      const COLLAPSE_STORAGE_KEY = "dsa_cpp_collapsed_modules_v1";
+
+      function loadCollapsedState() {
+        const map = {};
+        try {
+          const raw = localStorage.getItem(COLLAPSE_STORAGE_KEY);
+          if (!raw) return map;
+          const parsed = JSON.parse(raw);
+          if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return map;
+          for (const mod of MODULES) {
+            if (typeof parsed[mod.id] === "boolean") {
+              map[mod.id] = parsed[mod.id];
+            }
+          }
+        } catch (_err) {
+          // Ignore storage read errors
+        }
+        return map;
+      }
+
+      function saveCollapsedState(state) {
+        try {
+          localStorage.setItem(COLLAPSE_STORAGE_KEY, JSON.stringify(state));
+        } catch (_err) {
+          // Ignore storage write errors
+        }
+      }
+
+      let checkedMap = loadCheckedState();
+      let collapsedMap = loadCollapsedState();
+      let activeModule = "all";
+      let activeStatus = "all";
+      let searchQuery = "";
+
+      const modulesContainer = document.getElementById("modules-container");
+      const modulePillsContainer = document.getElementById("module-pills");
+      const searchBox = document.getElementById("search-box");
+      const toggleCollapseBtn = document.getElementById("toggle-collapse-btn");
+      const untickAllBtn = document.getElementById("untick-all-btn");
+      const tickAllBtn = document.getElementById("tick-all-btn");
+      const progressText = document.getElementById("progress-text");
+      const progressFill = document.getElementById("progress-fill");
+      const statusButtons = Array.from(document.querySelectorAll("[data-status]"));
+
+      function createChevronSvg() {
+        const svgNS = "http://www.w3.org/2000/svg";
+        const svg = document.createElementNS(svgNS, "svg");
+        svg.setAttribute("viewBox", "0 0 16 16");
+        svg.setAttribute("aria-hidden", "true");
+        svg.classList.add("chevron");
+
+        const path = document.createElementNS(svgNS, "path");
+        path.setAttribute("d", "M6 3.5 L10.5 8 L6 12.5");
+        svg.appendChild(path);
+        return svg;
+      }
+
+      function updateCollapseButtonLabel() {
+        const allCollapsed = MODULES.every(function (mod) {
+          return Boolean(collapsedMap[mod.id]);
+        });
+        toggleCollapseBtn.textContent = allCollapsed ? "Expand all" : "Collapse all";
+      }
+
+      function createTickSvg() {
+        const svgNS = "http://www.w3.org/2000/svg";
+        const svg = document.createElementNS(svgNS, "svg");
+        svg.setAttribute("viewBox", "0 0 16 16");
+        svg.setAttribute("aria-hidden", "true");
+        svg.classList.add("tick-svg");
+
+        const path = document.createElementNS(svgNS, "path");
+        path.setAttribute("d", "M3.2 8.4 L6.5 11.7 L12.8 4.5");
+        svg.appendChild(path);
+        return svg;
+      }
+
+      function updateOverallProgress() {
+        let total = 0;
+        let solved = 0;
+        for (const mod of MODULES) {
+          for (const item of mod.items) {
+            total++;
+            if (checkedMap[item.path]) solved++;
+          }
+        }
+        const pct = total === 0 ? 0 : Math.round((solved / total) * 100);
+        progressText.textContent = solved + " / " + total + " (" + pct + "%)";
+        progressFill.style.width = pct + "%";
+      }
+
+      function renderModulePills() {
+        modulePillsContainer.replaceChildren();
+
+        const allBtn = document.createElement("button");
+        allBtn.type = "button";
+        allBtn.className = "pill";
+        allBtn.textContent = "All Modules";
+        allBtn.setAttribute("aria-pressed", String(activeModule === "all"));
+        allBtn.addEventListener("click", function () {
+          activeModule = "all";
+          renderModulePills();
+          renderModules();
+        });
+        modulePillsContainer.appendChild(allBtn);
+
+        for (const mod of MODULES) {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "pill";
+          btn.textContent = mod.label;
+          btn.setAttribute("aria-pressed", String(activeModule === mod.id));
+          btn.addEventListener("click", function () {
+            activeModule = mod.id;
+            renderModulePills();
+            renderModules();
+          });
+          modulePillsContainer.appendChild(btn);
+        }
+      }
+
+      function renderModules() {
+        modulesContainer.replaceChildren();
+        const query = searchQuery.trim().toLowerCase();
+        let visibleSections = 0;
+
+        for (const mod of MODULES) {
+          if (activeModule !== "all" && activeModule !== mod.id) continue;
+
+          const filteredItems = mod.items.filter(function (item) {
+            const isChecked = Boolean(checkedMap[item.path]);
+            if (activeStatus === "done" && !isChecked) return false;
+            if (activeStatus === "pending" && isChecked) return false;
+
+            if (query) {
+              const haystack = (item.name + " " + item.desc + " " + item.path).toLowerCase();
+              if (!haystack.includes(query)) return false;
+            }
+            return true;
+          });
+
+          if (filteredItems.length === 0) continue;
+          visibleSections++;
+
+          const section = document.createElement("details");
+          section.className = "module-section";
+          section.open = query.length > 0 ? true : !Boolean(collapsedMap[mod.id]);
+
+          const header = document.createElement("summary");
+          header.className = "module-header";
+
+          const titleWrap = document.createElement("div");
+          titleWrap.className = "module-title-wrap";
+
+          const h2 = document.createElement("h2");
+          h2.className = "module-title";
+          h2.textContent = mod.title;
+
+          titleWrap.append(createChevronSvg(), h2);
+
+          const solvedInMod = mod.items.filter(function (it) {
+            return Boolean(checkedMap[it.path]);
+          }).length;
+
+          const countSpan = document.createElement("span");
+          countSpan.className = "module-count";
+          countSpan.textContent = solvedInMod + " / " + mod.items.length + " ticked";
+
+          header.append(titleWrap, countSpan);
+          section.appendChild(header);
+
+          section.addEventListener("toggle", function () {
+            if (searchQuery.trim().length > 0) return;
+            collapsedMap[mod.id] = !section.open;
+            saveCollapsedState(collapsedMap);
+            updateCollapseButtonLabel();
+          });
+
+          const ul = document.createElement("ul");
+          ul.className = "question-list";
+
+          for (const item of filteredItems) {
+            const isChecked = Boolean(checkedMap[item.path]);
+
+            const li = document.createElement("li");
+            li.className = "question-row" + (isChecked ? " is-checked" : "");
+
+            const left = document.createElement("div");
+            left.className = "question-left";
+
+            const label = document.createElement("label");
+            label.className = "tick-label";
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.className = "tick-input";
+            checkbox.checked = isChecked;
+            checkbox.setAttribute("aria-label", "Mark " + item.name + " as completed");
+
+            const box = document.createElement("span");
+            box.className = "tick-box";
+            box.appendChild(createTickSvg());
+
+            label.append(checkbox, box);
+
+            const info = document.createElement("div");
+            info.className = "question-info";
+
+            const nameSpan = document.createElement("span");
+            nameSpan.className = "question-name";
+            nameSpan.textContent = item.name;
+
+            const descSpan = document.createElement("span");
+            descSpan.className = "question-desc";
+            descSpan.textContent = item.desc;
+
+            info.append(nameSpan, descSpan);
+            left.append(label, info);
+
+            const right = document.createElement("div");
+            right.className = "question-right";
+
+            const badge = document.createElement("span");
+            badge.className = "status-badge " + (isChecked ? "done" : "pending");
+            badge.textContent = isChecked ? "Done" : "Pending";
+
+            const link = document.createElement("a");
+            link.className = "file-link";
+            link.href = item.path;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.textContent = item.path;
+
+            checkbox.addEventListener("change", function () {
+              checkedMap[item.path] = checkbox.checked;
+              saveCheckedState(checkedMap);
+              updateOverallProgress();
+              if (activeStatus !== "all") {
+                renderModules();
+              } else {
+                li.className = "question-row" + (checkbox.checked ? " is-checked" : "");
+                badge.className = "status-badge " + (checkbox.checked ? "done" : "pending");
+                badge.textContent = checkbox.checked ? "Done" : "Pending";
+                const updatedCount = mod.items.filter(function (it) {
+                  return Boolean(checkedMap[it.path]);
+                }).length;
+                countSpan.textContent = updatedCount + " / " + mod.items.length + " ticked";
+              }
+            });
+
+            right.append(badge, link);
+            li.append(left, right);
+            ul.appendChild(li);
+          }
+
+          section.appendChild(ul);
+          modulesContainer.appendChild(section);
+        }
+
+        if (visibleSections === 0) {
+          const empty = document.createElement("div");
+          empty.className = "empty-state";
+          empty.textContent = "No questions match the current search or filter.";
+          modulesContainer.appendChild(empty);
+        }
+      }
+
+      searchBox.addEventListener("input", function () {
+        searchQuery = searchBox.value;
+        renderModules();
+      });
+
+      for (const btn of statusButtons) {
+        btn.addEventListener("click", function () {
+          activeStatus = btn.getAttribute("data-status") || "all";
+          for (const other of statusButtons) {
+            other.setAttribute("aria-pressed", String(other === btn));
+          }
+          renderModules();
+        });
+      }
+
+      toggleCollapseBtn.addEventListener("click", function () {
+        const allCollapsed = MODULES.every(function (mod) {
+          return Boolean(collapsedMap[mod.id]);
+        });
+        const nextCollapsed = !allCollapsed;
+        for (const mod of MODULES) {
+          collapsedMap[mod.id] = nextCollapsed;
+        }
+        saveCollapsedState(collapsedMap);
+        updateCollapseButtonLabel();
+        renderModules();
+      });
+
+      untickAllBtn.addEventListener("click", function () {
+        checkedMap = getEmptyCheckedMap();
+        saveCheckedState(checkedMap);
+        updateOverallProgress();
+        renderModules();
+      });
+
+      tickAllBtn.addEventListener("click", function () {
+        checkedMap = getRepoSolvedMap();
+        saveCheckedState(checkedMap);
+        updateOverallProgress();
+        renderModules();
+      });
+
+      updateOverallProgress();
+      updateCollapseButtonLabel();
+      renderModulePills();
+      renderModules();
+    })();
+  </script>
+</body>
+</html>
